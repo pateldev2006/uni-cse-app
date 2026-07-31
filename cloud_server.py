@@ -124,5 +124,77 @@ def api_send_push():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+def schedule_monitor_thread():
+    import datetime
+    # Keep track of what we alerted to avoid duplicates
+    alerted_keys = set() 
+    
+    print("⏰ Background scheduler started...")
+    while True:
+        try:
+            time.sleep(30)
+            
+            # Load schedule
+            if not os.path.exists(SCHEDULE_FILE):
+                continue
+                
+            with open(SCHEDULE_FILE, 'r', encoding='utf-8') as f:
+                schedule = json.load(f)
+                
+            if not isinstance(schedule, list):
+                continue
+                
+            # Get current day and time in IST (UTC+5:30)
+            utc_now = datetime.datetime.utcnow()
+            ist_now = utc_now + datetime.timedelta(hours=5, minutes=30)
+            current_day = ist_now.strftime('%A')
+            current_time_minutes = ist_now.hour * 60 + ist_now.minute
+            
+            # Filter schedule for today
+            today_classes = [c for c in schedule if c.get('day', '').lower() == current_day.lower()]
+            
+            for c in today_classes:
+                start_time_str = c.get('startTime', '')
+                if not start_time_str:
+                    continue
+                try:
+                    sh, sm = map(int, start_time_str.split(':'))
+                    start_minutes = sh * 60 + sm
+                    
+                    # 1. Check for 5-minute warning
+                    five_min_warning_minutes = start_minutes - 5
+                    if current_time_minutes == five_min_warning_minutes:
+                        alert_key = f"{c.get('id')}-5m-{ist_now.strftime('%Y-%m-%d')}"
+                        if alert_key not in alerted_keys:
+                            alerted_keys.add(alert_key)
+                            title = "⏱️ 5 Minutes Warning!"
+                            body = f"Upcoming: {c.get('subject')} in {c.get('building')} Room {c.get('room')}"
+                            print(f"⏰ Auto-firing 5m alert: {title} - {body}")
+                            send_onesignal_push(title, body)
+                            
+                    # 2. Check for start warning
+                    if current_time_minutes == start_minutes:
+                        alert_key = f"{c.get('id')}-start-{ist_now.strftime('%Y-%m-%d')}"
+                        if alert_key not in alerted_keys:
+                            alerted_keys.add(alert_key)
+                            title = "🚨 LECTURE STARTING NOW!"
+                            body = f"{c.get('subject')} is starting in {c.get('building')} (Room {c.get('room')})"
+                            print(f"⏰ Auto-firing start alert: {title} - {body}")
+                            send_onesignal_push(title, body)
+                except Exception as ex:
+                    print("Error checking class:", ex)
+                    
+            # Clean up old alerts to prevent memory leak
+            if len(alerted_keys) > 100:
+                alerted_keys.clear()
+                
+        except Exception as e:
+            print("Error in scheduler thread:", e)
+
+# Start scheduler thread
+import threading
+threading.Thread(target=schedule_monitor_thread, daemon=True).start()
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+
