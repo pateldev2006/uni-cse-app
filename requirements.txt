@@ -1,0 +1,5 @@
+flask
+pywebpush
+cryptography
+py-vapid
+flask-cors

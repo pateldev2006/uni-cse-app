@@ -1,0 +1,8 @@
+cloudflared.exe
+data/push_subscriptions.json
+data/push_subscriptions.json.bak
+private_key.pem
+vapid_keys.json
+__pycache__/
+*.pyc
+*.log
