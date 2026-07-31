@@ -199,6 +199,10 @@ class EduPulseApp {
   }
 
   startLiveSyncLoop() {
+    if (window.location.hostname.includes('github.io')) {
+      console.log('🌐 Static host detected (GitHub Pages). Server sync loop disabled.');
+      return;
+    }
     setInterval(async () => {
       try {
         const res = await fetch('./api/version');
@@ -221,6 +225,7 @@ class EduPulseApp {
       }
     }, 1500);
   }
+
 
   navigateToMapLocation(building, room) {
     this.switchTab('map');
