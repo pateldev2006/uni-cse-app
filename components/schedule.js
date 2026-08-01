@@ -1,405 +1,73 @@
 // Lecture Schedule & Timetable Component tailored for Uni Vadodara CSE Sem-V (BATCH A)
 
-export const INITIAL_SCHEDULE = [
-  {
-    id: "kpgu-batchA-mon-1",
-    subject: "Ethical Hacking",
-    code: "EH",
-    professor: "Ms. Hiral Patel (HP)",
-    day: "Monday",
-    startTime: "11:30",
-    endTime: "12:25",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#6366F1",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-mon-2",
-    subject: "Design & Analysis of Algorithms",
-    code: "DAA",
-    professor: "Ms. Nisha Parmar (NP)",
-    day: "Monday",
-    startTime: "12:25",
-    endTime: "13:20",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#06B6D4",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-mon-3",
-    subject: "Software Engineering",
-    code: "SE",
-    professor: "Ms. Kajal Barot (KB)",
-    day: "Monday",
-    startTime: "13:45",
-    endTime: "14:40",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#10B981",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-mon-4",
-    subject: "Fundamental of Data Science",
-    code: "FODS",
-    professor: "Ms. Arohi Patel (AP)",
-    day: "Monday",
-    startTime: "14:40",
-    endTime: "15:35",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#F59E0B",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-mon-5",
-    subject: "Mini Project Lab (MP-A)",
-    code: "MP-A (Lab)",
-    professor: "Mr. Tushar Desai (TH)",
-    day: "Monday",
-    startTime: "15:50",
-    endTime: "17:30",
-    building: "Internet Lab (F-Block 2nd Floor)",
-    room: "INT",
-    color: "#EC4899",
-    status: "upcoming",
-    notes: "Batch A Mini Project Lab in INT (2nd Floor)"
-  },
-  {
-    id: "kpgu-batchA-tue-1",
-    subject: "Formal Languages & Automation Theory",
-    code: "FLAT",
-    professor: "Ms. Bharati Salimath (BS)",
-    day: "Tuesday",
-    startTime: "11:30",
-    endTime: "12:25",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#8B5CF6",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-tue-2",
-    subject: "Software Engineering",
-    code: "SE",
-    professor: "Ms. Kajal Barot (KB)",
-    day: "Tuesday",
-    startTime: "12:25",
-    endTime: "13:20",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#10B981",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-tue-3",
-    subject: "Computer Networks",
-    code: "CN",
-    professor: "Dr. Shivam Upadhyay (DSU)",
-    day: "Tuesday",
-    startTime: "13:45",
-    endTime: "14:40",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#3B82F6",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-tue-4",
-    subject: "Design & Analysis of Algorithms",
-    code: "DAA",
-    professor: "Ms. Nisha Parmar (NP)",
-    day: "Tuesday",
-    startTime: "14:40",
-    endTime: "15:35",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#06B6D4",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-tue-5",
-    subject: "Computer Networks Lab (CN-A)",
-    code: "CN-A (Lab)",
-    professor: "Ms. Nisha Rajodiya (NR)",
-    day: "Tuesday",
-    startTime: "15:50",
-    endTime: "17:30",
-    building: "Computer Labs (F-Block 1st Floor)",
-    room: "F101/A1",
-    color: "#EC4899",
-    status: "upcoming",
-    notes: "Batch A CN Lab in F101/A1 (1st Floor)"
-  },
-  {
-    id: "kpgu-batchA-wed-1",
-    subject: "Computer Networks",
-    code: "CN",
-    professor: "Dr. Shivam Upadhyay (DSU)",
-    day: "Wednesday",
-    startTime: "11:30",
-    endTime: "12:25",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#3B82F6",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-wed-2",
-    subject: "Software Engineering",
-    code: "SE",
-    professor: "Ms. Kajal Barot (KB)",
-    day: "Wednesday",
-    startTime: "12:25",
-    endTime: "13:20",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#10B981",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-wed-3",
-    subject: "Design & Analysis of Algorithms",
-    code: "DAA",
-    professor: "Ms. Nisha Parmar (NP)",
-    day: "Wednesday",
-    startTime: "13:45",
-    endTime: "14:40",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#06B6D4",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-wed-4",
-    subject: "Fundamental of Data Science",
-    code: "FODS",
-    professor: "Ms. Arohi Patel (AP)",
-    day: "Wednesday",
-    startTime: "14:40",
-    endTime: "15:35",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#F59E0B",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-wed-5",
-    subject: "Formal Languages & Automation Theory",
-    code: "FLAT",
-    professor: "Ms. Bharati Salimath (BS)",
-    day: "Wednesday",
-    startTime: "15:50",
-    endTime: "16:40",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#8B5CF6",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-wed-6",
-    subject: "Ethical Hacking",
-    code: "EH",
-    professor: "Ms. Hiral Patel (HP)",
-    day: "Wednesday",
-    startTime: "16:40",
-    endTime: "17:30",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#6366F1",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-thu-1",
-    subject: "Formal Languages & Automation Theory",
-    code: "FLAT",
-    professor: "Ms. Bharati Salimath (BS)",
-    day: "Thursday",
-    startTime: "11:30",
-    endTime: "12:25",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#8B5CF6",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-thu-2",
-    subject: "Computer Networks",
-    code: "CN",
-    professor: "Dr. Shivam Upadhyay (DSU)",
-    day: "Thursday",
-    startTime: "12:25",
-    endTime: "13:20",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#3B82F6",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-thu-3",
-    subject: "Software Engineering",
-    code: "SE",
-    professor: "Ms. Kajal Barot (KB)",
-    day: "Thursday",
-    startTime: "13:45",
-    endTime: "14:40",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#10B981",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-thu-4",
-    subject: "Fundamental of Data Science",
-    code: "FODS",
-    professor: "Ms. Arohi Patel (AP)",
-    day: "Thursday",
-    startTime: "14:40",
-    endTime: "15:35",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#F59E0B",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-thu-5",
-    subject: "Software Engineering Lab (SE-A)",
-    code: "SE-A (Lab)",
-    professor: "Mr. Tushar Desai (TD)",
-    day: "Thursday",
-    startTime: "15:50",
-    endTime: "17:30",
-    building: "Computer Labs (F-Block 1st Floor)",
-    room: "F101/C2",
-    color: "#EC4899",
-    status: "upcoming",
-    notes: "Batch A SE Lab in F101/C2 (1st Floor)"
-  },
-  {
-    id: "kpgu-batchA-fri-1",
-    subject: "Ethical Hacking",
-    code: "EH",
-    professor: "Ms. Hiral Patel (HP)",
-    day: "Friday",
-    startTime: "11:30",
-    endTime: "12:25",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#6366F1",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-fri-2",
-    subject: "Design & Analysis of Algorithms",
-    code: "DAA",
-    professor: "Ms. Nisha Parmar (NP)",
-    day: "Friday",
-    startTime: "12:25",
-    endTime: "13:20",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#06B6D4",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-fri-3",
-    subject: "Computer Networks",
-    code: "CN",
-    professor: "Dr. Shivam Upadhyay (DSU)",
-    day: "Friday",
-    startTime: "13:45",
-    endTime: "14:40",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#3B82F6",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-fri-4",
-    subject: "Formal Languages & Automation Theory",
-    code: "FLAT",
-    professor: "Ms. Bharati Salimath (BS)",
-    day: "Friday",
-    startTime: "14:40",
-    endTime: "15:35",
-    building: "KSET Engineering (J-Block)",
-    room: "J002",
-    color: "#8B5CF6",
-    status: "upcoming",
-    notes: "Classroom J002"
-  },
-  {
-    id: "kpgu-batchA-fri-5",
-    subject: "DAA Lab (DAA-A)",
-    code: "DAA-A (Lab)",
-    professor: "Mr. Dharmendra Chavda (DC)",
-    day: "Friday",
-    startTime: "15:50",
-    endTime: "17:30",
-    building: "Computer Labs (F-Block Ground)",
-    room: "F001/A1",
-    color: "#EC4899",
-    status: "upcoming",
-    notes: "Batch A DAA Lab in F001/A1 (Ground Floor)"
-  }
+// Uni Vadodara CSE Timetable Database (Batch A, B, C, D)
+// Based on official timetable w.e.f 29th July 2026
+
+export const LECTURES_SCHEDULE = [
+  // Monday Lectures
+  { id: "uni-mon-1", subject: "Ethical Hacking", code: "EH", professor: "Ms. Hiral Patel (HP)", day: "Monday", startTime: "11:30", endTime: "12:25", building: "KSET Engineering (J-Block)", room: "J002", color: "#6366F1", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-mon-2", subject: "Design & Analysis of Algorithms", code: "DAA", professor: "Ms. Nisha Parmar (NP)", day: "Monday", startTime: "12:25", endTime: "13:20", building: "KSET Engineering (J-Block)", room: "J002", color: "#06B6D4", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-mon-3", subject: "Software Engineering", code: "SE", professor: "Ms. Kajal Barot (KB)", day: "Monday", startTime: "13:45", endTime: "14:40", building: "KSET Engineering (J-Block)", room: "J002", color: "#10B981", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-mon-4", subject: "Fundamental of Data Science", code: "FODS", professor: "Ms. Arohi Patel (AP)", day: "Monday", startTime: "14:40", endTime: "15:35", building: "KSET Engineering (J-Block)", room: "J002", color: "#F59E0B", status: "upcoming", notes: "Classroom J002" },
+  
+  // Tuesday Lectures
+  { id: "uni-tue-1", subject: "Formal Languages & Automation Theory", code: "FLAT", professor: "Ms. Bharati Salimath (BS)", day: "Tuesday", startTime: "11:30", endTime: "12:25", building: "KSET Engineering (J-Block)", room: "J002", color: "#8B5CF6", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-tue-2", subject: "Software Engineering", code: "SE", professor: "Ms. Kajal Barot (KB)", day: "Tuesday", startTime: "12:25", endTime: "13:20", building: "KSET Engineering (J-Block)", room: "J002", color: "#10B981", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-tue-3", subject: "Computer Networks", code: "CN", professor: "Dr. Shivam Upadhyay (DSU)", day: "Tuesday", startTime: "13:45", endTime: "14:40", building: "KSET Engineering (J-Block)", room: "J002", color: "#3B82F6", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-tue-4", subject: "Design & Analysis of Algorithms", code: "DAA", professor: "Ms. Nisha Parmar (NP)", day: "Tuesday", startTime: "14:40", endTime: "15:35", building: "KSET Engineering (J-Block)", room: "J002", color: "#06B6D4", status: "upcoming", notes: "Classroom J002" },
+
+  // Wednesday Lectures
+  { id: "uni-wed-1", subject: "Computer Networks", code: "CN", professor: "Dr. Shivam Upadhyay (DSU)", day: "Wednesday", startTime: "11:30", endTime: "12:25", building: "KSET Engineering (J-Block)", room: "J002", color: "#3B82F6", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-wed-2", subject: "Software Engineering", code: "SE", professor: "Ms. Kajal Barot (KB)", day: "Wednesday", startTime: "12:25", endTime: "13:20", building: "KSET Engineering (J-Block)", room: "J002", color: "#10B981", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-wed-3", subject: "Design & Analysis of Algorithms", code: "DAA", professor: "Ms. Nisha Parmar (NP)", day: "Wednesday", startTime: "13:45", endTime: "14:40", building: "KSET Engineering (J-Block)", room: "J002", color: "#06B6D4", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-wed-4", subject: "Fundamental of Data Science", code: "FODS", professor: "Ms. Arohi Patel (AP)", day: "Wednesday", startTime: "14:40", endTime: "15:35", building: "KSET Engineering (J-Block)", room: "J002", color: "#F59E0B", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-wed-5", subject: "Formal Languages & Automation Theory", code: "FLAT", professor: "Ms. Bharati Salimath (BS)", day: "Wednesday", startTime: "15:50", endTime: "16:40", building: "KSET Engineering (J-Block)", room: "J002", color: "#8B5CF6", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-wed-6", subject: "Ethical Hacking", code: "EH", professor: "Ms. Hiral Patel (HP)", day: "Wednesday", startTime: "16:40", endTime: "17:30", building: "KSET Engineering (J-Block)", room: "J002", color: "#6366F1", status: "upcoming", notes: "Classroom J002" },
+
+  // Thursday Lectures
+  { id: "uni-thu-1", subject: "Formal Languages & Automation Theory", code: "FLAT", professor: "Ms. Bharati Salimath (BS)", day: "Thursday", startTime: "11:30", endTime: "12:25", building: "KSET Engineering (J-Block)", room: "J002", color: "#8B5CF6", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-thu-2", subject: "Computer Networks", code: "CN", professor: "Dr. Shivam Upadhyay (DSU)", day: "Thursday", startTime: "12:25", endTime: "13:20", building: "KSET Engineering (J-Block)", room: "J002", color: "#3B82F6", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-thu-3", subject: "Software Engineering", code: "SE", professor: "Ms. Kajal Barot (KB)", day: "Thursday", startTime: "13:45", endTime: "14:40", building: "KSET Engineering (J-Block)", room: "J002", color: "#10B981", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-thu-4", subject: "Fundamental of Data Science", code: "FODS", professor: "Ms. Arohi Patel (AP)", day: "Thursday", startTime: "14:40", endTime: "15:35", building: "KSET Engineering (J-Block)", room: "J002", color: "#F59E0B", status: "upcoming", notes: "Classroom J002" },
+
+  // Friday Lectures
+  { id: "uni-fri-1", subject: "Ethical Hacking", code: "EH", professor: "Ms. Hiral Patel (HP)", day: "Friday", startTime: "11:30", endTime: "12:25", building: "KSET Engineering (J-Block)", room: "J002", color: "#6366F1", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-fri-2", subject: "Design & Analysis of Algorithms", code: "DAA", professor: "Ms. Nisha Parmar (NP)", day: "Friday", startTime: "12:25", endTime: "13:20", building: "KSET Engineering (J-Block)", room: "J002", color: "#06B6D4", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-fri-3", subject: "Computer Networks", code: "CN", professor: "Dr. Shivam Upadhyay (DSU)", day: "Friday", startTime: "13:45", endTime: "14:40", building: "KSET Engineering (J-Block)", room: "J002", color: "#3B82F6", status: "upcoming", notes: "Classroom J002" },
+  { id: "uni-fri-4", subject: "Formal Languages & Automation Theory", code: "FLAT", professor: "Ms. Bharati Salimath (BS)", day: "Friday", startTime: "14:40", endTime: "15:35", building: "KSET Engineering (J-Block)", room: "J002", color: "#8B5CF6", status: "upcoming", notes: "Classroom J002" }
 ];
 
+export const BATCH_LABS = {
+  "Batch A": [
+    { id: "uni-lab-mon-a", subject: "Mini Project Lab (MP-A)", code: "MP-A (Lab)", professor: "Mr. Tushar Desai (TD)", day: "Monday", startTime: "15:50", endTime: "16:40", building: "Internet Lab (F-Block 2nd Floor)", room: "INT", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch A" },
+    { id: "uni-lab-tue-a", subject: "Computer Networks Lab (CN-A)", code: "CN-A (Lab)", professor: "Ms. Nisha Rajodiya (NR)", day: "Tuesday", startTime: "15:50", endTime: "16:40", building: "Computer Labs (F-Block 1st Floor)", room: "F101/A1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch A" },
+    { id: "uni-lab-thu-a", subject: "Software Engineering Lab (SE-A)", code: "SE-A (Lab)", professor: "Mr. Tushar Desai (TD)", day: "Thursday", startTime: "15:50", endTime: "16:40", building: "Computer Labs (F-Block 1st Floor)", room: "F101/C2", color: "#10B981", status: "upcoming", notes: "SE Lab Batch A" },
+    { id: "uni-lab-fri-a", subject: "DAA Lab (DAA-A)", code: "DAA-A (Lab)", professor: "Mr. Dharmendra Chavda (DC)", day: "Friday", startTime: "15:50", endTime: "16:40", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch A" }
+  ],
+  "Batch B": [
+    { id: "uni-lab-mon-b", subject: "DAA Lab (DAA-B)", code: "DAA-B (Lab)", professor: "Mr. Dharmendra Chavda (DC)", day: "Monday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch B" },
+    { id: "uni-lab-tue-b", subject: "Software Engineering Lab (SE-B)", code: "SE-B (Lab)", professor: "Mr. Tushar Desai (TD)", day: "Tuesday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/C2", color: "#10B981", status: "upcoming", notes: "SE Lab Batch B" },
+    { id: "uni-lab-thu-b", subject: "Computer Networks Lab (CN-B)", code: "CN-B (Lab)", professor: "Ms. Nisha Rajodiya (NR)", day: "Thursday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch B" },
+    { id: "uni-lab-fri-b", subject: "Mini Project Lab (MP-B)", code: "MP-B (Lab)", professor: "Ms. Sonia Panesar (SFP)", day: "Friday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/D2", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch B" }
+  ],
+  "Batch C": [
+    { id: "uni-lab-mon-c", subject: "Software Engineering Lab (SE-C)", code: "SE-C (Lab)", professor: "Ms. Kajal Barot (KB)", day: "Monday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#10B981", status: "upcoming", notes: "SE Lab Batch C" },
+    { id: "uni-lab-tue-c", subject: "DAA Lab (DAA-C)", code: "DAA-C (Lab)", professor: "Ms. Nisha Parmar (NP)", day: "Tuesday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch C" },
+    { id: "uni-lab-thu-c", subject: "Mini Project Lab (MP-C)", code: "MP-C (Lab)", professor: "Ms. Hiral Patel (HP)", day: "Thursday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/B1", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch C" },
+    { id: "uni-lab-fri-c", subject: "Computer Networks Lab (CN-C)", code: "CN-C (Lab)", professor: "Dr. Shivam Upadhyay (DSU)", day: "Friday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch C" }
+  ],
+  "Batch D": [
+    { id: "uni-lab-mon-d", subject: "Mini Project Lab (MP-D)", code: "MP-D (Lab)", professor: "Ms. Ankita Kothari (AK)", day: "Monday", startTime: "16:40", endTime: "17:30", building: "Internet Lab (F-Block 2nd Floor)", room: "INT", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch D" },
+    { id: "uni-lab-tue-d", subject: "Computer Networks Lab (CN-D)", code: "CN-D (Lab)", professor: "Dr. Shivam Upadhyay (DSU)", day: "Tuesday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch D" },
+    { id: "uni-lab-thu-d", subject: "DAA Lab (DAA-D)", code: "DAA-D (Lab)", professor: "Ms. Nisha Parmar (NP)", day: "Thursday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch D" },
+    { id: "uni-lab-fri-d", subject: "Software Engineering Lab (SE-D)", code: "SE-D (Lab)", professor: "Ms. Kajal Barot (KB)", day: "Friday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/B1", color: "#10B981", status: "upcoming", notes: "SE Lab Batch D" }
+  ]
+};
+
 export function getInitialScheduleForBatch(batch) {
-  if (batch === 'Batch A') {
-    return INITIAL_SCHEDULE;
-  }
-  const suffix = batch.split(' ')[1] || 'B';
-  return INITIAL_SCHEDULE.map(c => {
-    let room = c.room;
-    let code = c.code;
-    let notes = c.notes;
-    let subject = c.subject;
-    
-    // Replace all occurrences of "Batch A", "-A" (like CN-A), and "MP-A" to match the selected batch suffix
-    subject = subject.replace(/Batch A/g, `Batch ${suffix}`).replace(/MP-A/g, `MP-${suffix}`).replace(/CN-A/g, `CN-${suffix}`).replace(/DAA-A/g, `DAA-${suffix}`).replace(/SE-A/g, `SE-${suffix}`);
-    code = code.replace(/Batch A/g, `Batch ${suffix}`).replace(/-A/g, `-${suffix}`);
-    notes = notes.replace(/Batch A/g, `Batch ${suffix}`).replace(/-A/g, `-${suffix}`);
-    
-    // Update batch-specific lab room numbers: e.g. F001/A1 -> F001/B1 (for Batch B) or F001/C1 (for Batch C)
-    if (room.includes('/A1')) {
-      room = room.replace('/A1', `/${suffix}1`);
-    }
-    if (room.includes('/A2')) {
-      room = room.replace('/A2', `/${suffix}2`);
-    }
-    
-    return {
-      ...c,
-      id: c.id.replace('batchA', batch.toLowerCase().replace(' ', '')),
-      subject,
-      code,
-      room,
-      notes
-    };
-  });
+  const lectures = LECTURES_SCHEDULE;
+  const labs = BATCH_LABS[batch] || [];
+  return [...lectures, ...labs];
 }
 
 export class ScheduleManager {
@@ -418,7 +86,7 @@ export class ScheduleManager {
   }
 
   getStorageKey() {
-    return `uni_${this.currentBatch.toLowerCase().replace(' ', '')}_schedule_v6`;
+    return `uni_${this.currentBatch.toLowerCase().replace(' ', '')}_schedule_v7`;
   }
 
   loadFromStorage() {
