@@ -39,28 +39,28 @@ export const LECTURES_SCHEDULE = [
 
 export const BATCH_LABS = {
   "Batch A": [
-    { id: "uni-lab-mon-a", subject: "Mini Project Lab (MP-A)", code: "MP-A (Lab)", professor: "Mr. Tushar Desai (TD)", day: "Monday", startTime: "15:50", endTime: "16:40", building: "Internet Lab (F-Block 2nd Floor)", room: "INT", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch A" },
-    { id: "uni-lab-tue-a", subject: "Computer Networks Lab (CN-A)", code: "CN-A (Lab)", professor: "Ms. Nisha Rajodiya (NR)", day: "Tuesday", startTime: "15:50", endTime: "16:40", building: "Computer Labs (F-Block 1st Floor)", room: "F101/A1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch A" },
-    { id: "uni-lab-thu-a", subject: "Software Engineering Lab (SE-A)", code: "SE-A (Lab)", professor: "Mr. Tushar Desai (TD)", day: "Thursday", startTime: "15:50", endTime: "16:40", building: "Computer Labs (F-Block 1st Floor)", room: "F101/C2", color: "#10B981", status: "upcoming", notes: "SE Lab Batch A" },
-    { id: "uni-lab-fri-a", subject: "DAA Lab (DAA-A)", code: "DAA-A (Lab)", professor: "Mr. Dharmendra Chavda (DC)", day: "Friday", startTime: "15:50", endTime: "16:40", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch A" }
+    { id: "uni-lab-mon-a", subject: "Mini Project Lab (MP-A)", code: "MP-A (Lab)", professor: "Mr. Tushar Desai (TD)", day: "Monday", startTime: "15:50", endTime: "17:30", building: "Internet Lab (F-Block 2nd Floor)", room: "INT", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch A" },
+    { id: "uni-lab-tue-a", subject: "Computer Networks Lab (CN-A)", code: "CN-A (Lab)", professor: "Ms. Nisha Rajodiya (NR)", day: "Tuesday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/A1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch A" },
+    { id: "uni-lab-thu-a", subject: "Software Engineering Lab (SE-A)", code: "SE-A (Lab)", professor: "Mr. Tushar Desai (TD)", day: "Thursday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/C2", color: "#10B981", status: "upcoming", notes: "SE Lab Batch A" },
+    { id: "uni-lab-fri-a", subject: "DAA Lab (DAA-A)", code: "DAA-A (Lab)", professor: "Mr. Dharmendra Chavda (DC)", day: "Friday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch A" }
   ],
   "Batch B": [
-    { id: "uni-lab-mon-b", subject: "DAA Lab (DAA-B)", code: "DAA-B (Lab)", professor: "Mr. Dharmendra Chavda (DC)", day: "Monday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch B" },
-    { id: "uni-lab-tue-b", subject: "Software Engineering Lab (SE-B)", code: "SE-B (Lab)", professor: "Mr. Tushar Desai (TD)", day: "Tuesday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/C2", color: "#10B981", status: "upcoming", notes: "SE Lab Batch B" },
-    { id: "uni-lab-thu-b", subject: "Computer Networks Lab (CN-B)", code: "CN-B (Lab)", professor: "Ms. Nisha Rajodiya (NR)", day: "Thursday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch B" },
-    { id: "uni-lab-fri-b", subject: "Mini Project Lab (MP-B)", code: "MP-B (Lab)", professor: "Ms. Sonia Panesar (SFP)", day: "Friday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/D2", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch B" }
+    { id: "uni-lab-mon-b", subject: "DAA Lab (DAA-B)", code: "DAA-B (Lab)", professor: "Mr. Dharmendra Chavda (DC)", day: "Monday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch B" },
+    { id: "uni-lab-tue-b", subject: "Software Engineering Lab (SE-B)", code: "SE-B (Lab)", professor: "Mr. Tushar Desai (TD)", day: "Tuesday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/C2", color: "#10B981", status: "upcoming", notes: "SE Lab Batch B" },
+    { id: "uni-lab-thu-b", subject: "Computer Networks Lab (CN-B)", code: "CN-B (Lab)", professor: "Ms. Nisha Rajodiya (NR)", day: "Thursday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch B" },
+    { id: "uni-lab-fri-b", subject: "Mini Project Lab (MP-B)", code: "MP-B (Lab)", professor: "Ms. Sonia Panesar (SFP)", day: "Friday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/D2", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch B" }
   ],
   "Batch C": [
-    { id: "uni-lab-mon-c", subject: "Software Engineering Lab (SE-C)", code: "SE-C (Lab)", professor: "Ms. Kajal Barot (KB)", day: "Monday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#10B981", status: "upcoming", notes: "SE Lab Batch C" },
-    { id: "uni-lab-tue-c", subject: "DAA Lab (DAA-C)", code: "DAA-C (Lab)", professor: "Ms. Nisha Parmar (NP)", day: "Tuesday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch C" },
-    { id: "uni-lab-thu-c", subject: "Mini Project Lab (MP-C)", code: "MP-C (Lab)", professor: "Ms. Hiral Patel (HP)", day: "Thursday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/B1", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch C" },
-    { id: "uni-lab-fri-c", subject: "Computer Networks Lab (CN-C)", code: "CN-C (Lab)", professor: "Dr. Shivam Upadhyay (DSU)", day: "Friday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch C" }
+    { id: "uni-lab-mon-c", subject: "Software Engineering Lab (SE-C)", code: "SE-C (Lab)", professor: "Ms. Kajal Barot (KB)", day: "Monday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#10B981", status: "upcoming", notes: "SE Lab Batch C" },
+    { id: "uni-lab-tue-c", subject: "DAA Lab (DAA-C)", code: "DAA-C (Lab)", professor: "Ms. Nisha Parmar (NP)", day: "Tuesday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch C" },
+    { id: "uni-lab-thu-c", subject: "Mini Project Lab (MP-C)", code: "MP-C (Lab)", professor: "Ms. Hiral Patel (HP)", day: "Thursday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/B1", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch C" },
+    { id: "uni-lab-fri-c", subject: "Computer Networks Lab (CN-C)", code: "CN-C (Lab)", professor: "Dr. Shivam Upadhyay (DSU)", day: "Friday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch C" }
   ],
   "Batch D": [
-    { id: "uni-lab-mon-d", subject: "Mini Project Lab (MP-D)", code: "MP-D (Lab)", professor: "Ms. Ankita Kothari (AK)", day: "Monday", startTime: "16:40", endTime: "17:30", building: "Internet Lab (F-Block 2nd Floor)", room: "INT", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch D" },
-    { id: "uni-lab-tue-d", subject: "Computer Networks Lab (CN-D)", code: "CN-D (Lab)", professor: "Dr. Shivam Upadhyay (DSU)", day: "Tuesday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch D" },
-    { id: "uni-lab-thu-d", subject: "DAA Lab (DAA-D)", code: "DAA-D (Lab)", professor: "Ms. Nisha Parmar (NP)", day: "Thursday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch D" },
-    { id: "uni-lab-fri-d", subject: "Software Engineering Lab (SE-D)", code: "SE-D (Lab)", professor: "Ms. Kajal Barot (KB)", day: "Friday", startTime: "16:40", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/B1", color: "#10B981", status: "upcoming", notes: "SE Lab Batch D" }
+    { id: "uni-lab-mon-d", subject: "Mini Project Lab (MP-D)", code: "MP-D (Lab)", professor: "Ms. Ankita Kothari (AK)", day: "Monday", startTime: "15:50", endTime: "17:30", building: "Internet Lab (F-Block 2nd Floor)", room: "INT", color: "#EC4899", status: "upcoming", notes: "Mini Project Lab Batch D" },
+    { id: "uni-lab-tue-d", subject: "Computer Networks Lab (CN-D)", code: "CN-D (Lab)", professor: "Dr. Shivam Upadhyay (DSU)", day: "Tuesday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/B1", color: "#3B82F6", status: "upcoming", notes: "CN Lab Batch D" },
+    { id: "uni-lab-thu-d", subject: "DAA Lab (DAA-D)", code: "DAA-D (Lab)", professor: "Ms. Nisha Parmar (NP)", day: "Thursday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block Ground)", room: "F001/A1", color: "#06B6D4", status: "upcoming", notes: "DAA Lab Batch D" },
+    { id: "uni-lab-fri-d", subject: "Software Engineering Lab (SE-D)", code: "SE-D (Lab)", professor: "Ms. Kajal Barot (KB)", day: "Friday", startTime: "15:50", endTime: "17:30", building: "Computer Labs (F-Block 1st Floor)", room: "F101/B1", color: "#10B981", status: "upcoming", notes: "SE Lab Batch D" }
   ]
 };
 
@@ -86,7 +86,7 @@ export class ScheduleManager {
   }
 
   getStorageKey() {
-    return `uni_${this.currentBatch.toLowerCase().replace(' ', '')}_schedule_v7`;
+    return `uni_${this.currentBatch.toLowerCase().replace(' ', '')}_schedule_v8`;
   }
 
   loadFromStorage() {
