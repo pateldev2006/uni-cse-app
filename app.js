@@ -1,9 +1,9 @@
 // Uni Vadodara CSE Main Application Orchestrator (Batch A)
 // v9 - Web Push Notification System
 
-import { CampusMapManager, BUILDINGS_DATA } from './components/map_v2.js?v=21';
-import { NotificationManager } from './components/alerts.js?v=21';
-import { ScheduleManager } from './components/schedule.js?v=21';
+import { CampusMapManager, BUILDINGS_DATA } from './components/map_v2.js?v=22';
+import { NotificationManager } from './components/alerts.js?v=22';
+import { ScheduleManager } from './components/schedule.js?v=22';
 
 class EduPulseApp {
   constructor() {
@@ -70,24 +70,7 @@ class EduPulseApp {
 
 
   async registerServiceWorkerAndPush() {
-    if (!('serviceWorker' in navigator)) {
-      console.warn('Service Workers not supported');
-      return;
-    }
-
-    try {
-      const reg = await navigator.serviceWorker.register('/sw.js');
-      console.log('✅ Service Worker registered!', reg);
-
-      // Wait for the SW to be ready
-      const swReg = await navigator.serviceWorker.ready;
-      console.log('✅ Service Worker ready!');
-
-      // Subscribe to Web Push
-      await this.subscribeToPush(swReg);
-    } catch (err) {
-      console.warn('SW registration failed:', err);
-    }
+    console.log('📱 Service Worker disabled for native app wrapper compatibility.');
   }
 
   async subscribeToPush(swRegistration) {
