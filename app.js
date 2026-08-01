@@ -36,19 +36,24 @@ class EduPulseApp {
   setupBatchSelector() {
     const batchSelect = document.getElementById('app-batch-select');
     const headerSubtitle = document.getElementById('header-batch-subtitle');
+    const agendaSubtitle = document.getElementById('dash-agenda-subtitle');
+    const weeklySubtitle = document.getElementById('weekly-timetable-subtitle');
     
     if (batchSelect) {
       batchSelect.value = this.scheduleManager.currentBatch;
-      if (headerSubtitle) {
-        headerSubtitle.innerText = `${this.scheduleManager.currentBatch} Timetable & Alerts`;
-      }
+      
+      const updateSubtitles = (batch) => {
+        if (headerSubtitle) headerSubtitle.innerText = `${batch} Timetable & Alerts`;
+        if (agendaSubtitle) agendaSubtitle.innerText = `${batch} classes & labs`;
+        if (weeklySubtitle) weeklySubtitle.innerText = `Semester-V Computer Science (${batch})`;
+      };
+      
+      updateSubtitles(this.scheduleManager.currentBatch);
       
       batchSelect.addEventListener('change', (e) => {
         const newBatch = e.target.value;
         this.scheduleManager.switchBatch(newBatch);
-        if (headerSubtitle) {
-          headerSubtitle.innerText = `${newBatch} Timetable & Alerts`;
-        }
+        updateSubtitles(newBatch);
         this.renderDashboard();
         this.startCountdownLoop();
         if (this.currentTab === 'schedule') {
@@ -297,32 +302,35 @@ class EduPulseApp {
           <div style="display: flex; flex-direction: column; gap: 0.8rem;">
             <!-- Top Header Details -->
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;">
-              <div style="display: flex; align-items: center; gap: 0.5rem; overflow: hidden;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; overflow: hidden; flex: 1;">
                 <span class="live-badge" style="font-size: 0.65rem; padding: 0.2rem 0.55rem; flex-shrink: 0; background: ${nextClass.isLiveNow ? 'rgba(16, 185, 129, 0.12)' : 'rgba(99, 102, 241, 0.12)'}; border-color: ${nextClass.isLiveNow ? 'rgba(16, 185, 129, 0.3)' : 'rgba(99, 102, 241, 0.3)'}; color: ${nextClass.isLiveNow ? '#34D399' : '#A5B4FC'};">
                   <span class="live-dot" style="background-color: ${nextClass.isLiveNow ? 'var(--accent-emerald)' : 'var(--accent-primary)'}; box-shadow: 0 0 8px ${nextClass.isLiveNow ? 'var(--accent-emerald)' : 'var(--accent-primary)'};"></span>
                   ${nextClass.isLiveNow ? 'LIVE' : 'UPCOMING'}
                 </span>
-                <h3 style="font-size: 1.05rem; font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                <h3 style="font-size: 1.05rem; font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;">
                   ${nextClass.subject}
                 </h3>
               </div>
-              <div id="dash-countdown-timer" style="font-family: var(--font-title); font-size: 1.35rem; font-weight: 800; color: var(--accent-cyan); flex-shrink: 0; font-variant-numeric: tabular-nums;">
+              <div id="dash-countdown-timer" style="font-family: var(--font-title); font-size: 1.25rem; font-weight: 800; color: var(--accent-cyan); flex-shrink: 0; font-variant-numeric: tabular-nums;">
                 00:00:00
               </div>
             </div>
 
-            <!-- Bottom Metadata Strip -->
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; background: rgba(5, 7, 15, 0.5); padding: 0.6rem 0.9rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.02); font-size: 0.78rem; color: var(--text-muted);">
-              <div style="display: flex; align-items: center; gap: 0.4rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                <span>🕒 <strong>${nextClass.startTime}-${nextClass.endTime}</strong></span>
-                <span style="opacity: 0.4;">|</span>
-                <span>🚪 Room <strong>${nextClass.room}</strong></span>
-                <span style="opacity: 0.4;">|</span>
-                <span>👤 ${nextClass.professor}</span>
+            <!-- Bottom Metadata Strip (Stacked for Mobile) -->
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; background: rgba(5, 7, 15, 0.5); padding: 0.75rem 0.9rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.02); font-size: 0.8rem; color: var(--text-muted);">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; width: 100%;">
+                <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                  <span>🕒 <strong>${nextClass.startTime}-${nextClass.endTime}</strong></span>
+                  <span style="opacity: 0.4;">|</span>
+                  <span>🚪 Room <strong>${nextClass.room}</strong></span>
+                </div>
+                <button id="dash-locate-btn" class="btn-primary" style="padding: 0.35rem 0.75rem; font-size: 0.72rem; border-radius: 6px; box-shadow: none; flex-shrink: 0;">
+                  📍 Locate
+                </button>
               </div>
-              <button id="dash-locate-btn" class="btn-primary" style="padding: 0.35rem 0.75rem; font-size: 0.72rem; border-radius: 6px; box-shadow: none; flex-shrink: 0;">
-                📍 Locate
-              </button>
+              <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 0.4rem; font-size: 0.75rem; color: var(--text-dim); display: flex; align-items: center; gap: 0.35rem;">
+                <span>👤 Prof: <strong>${nextClass.professor}</strong></span>
+              </div>
             </div>
           </div>
         `;
@@ -347,55 +355,72 @@ class EduPulseApp {
       if (!nextClass || !timerEl) return;
 
       const now = new Date();
-      const [h, m] = nextClass.startTime.split(':').map(Number);
-      
-      const targetTime = new Date();
-      targetTime.setHours(h, m, 0, 0);
 
-      if (now > targetTime && !nextClass.isLiveNow) {
-        timerEl.innerText = "00:00:00";
-        return;
-      }
+      if (nextClass.isLiveNow) {
+        // Count down to the END of the running class
+        const [endH, endM] = nextClass.endTime.split(':').map(Number);
+        const targetTime = new Date();
+        targetTime.setHours(endH, endM, 0, 0);
 
-      const diffMs = targetTime - now;
-      if (diffMs <= 0) {
-        timerEl.innerText = "CLASS STARTED!";
-        if (lastAlertedId !== nextClass.id) {
-          lastAlertedId = nextClass.id;
+        const diffMs = targetTime - now;
+        if (diffMs <= 0) {
+          timerEl.innerText = "CLASS ENDED";
+          timerEl.style.color = '#F43F5E'; // Red/rose for class ended
+          return;
+        }
+
+        const hours = Math.floor(diffMs / 3600000);
+        const minutes = Math.floor((diffMs % 3600000) / 60000);
+        const seconds = Math.floor((diffMs % 60000) / 1000);
+
+        timerEl.innerText = `${hours > 0 ? String(hours).padStart(2, '0') + ':' : ''}${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} left`;
+        timerEl.style.color = '#34D399'; // Emerald green for live class remaining time
+      } else {
+        // Count down to the START of the upcoming class
+        const [h, m] = nextClass.startTime.split(':').map(Number);
+        const targetTime = new Date();
+        targetTime.setHours(h, m, 0, 0);
+
+        const diffMs = targetTime - now;
+        if (diffMs <= 0) {
+          timerEl.innerText = "STARTING...";
+          timerEl.style.color = 'var(--accent-cyan)';
+          if (lastAlertedId !== nextClass.id) {
+            lastAlertedId = nextClass.id;
+            this.notifications.sendAlert(
+              `🚨 LECTURE STARTING NOW!`,
+              `${nextClass.subject} is starting in ${nextClass.building} (Room ${nextClass.room})`,
+              true
+            );
+            this.triggerServerPush(
+              `🚨 LECTURE STARTING NOW!`,
+              `${nextClass.subject} is starting in ${nextClass.building} (Room ${nextClass.room})`
+            );
+          }
+          return;
+        }
+
+        const diffMins = Math.floor(diffMs / 60000);
+        if (diffMins === 5 && lastAlertedId !== nextClass.id + '-5m') {
+          lastAlertedId = nextClass.id + '-5m';
           this.notifications.sendAlert(
-            `🚨 LECTURE STARTING NOW!`,
-            `${nextClass.subject} is starting in ${nextClass.building} (Room ${nextClass.room})`,
-            true
+            `⏱️ 5 Minutes Warning!`,
+            `Upcoming: ${nextClass.subject} in ${nextClass.building} Room ${nextClass.room}`,
+            false
           );
-          // Also send server push for notification bar
           this.triggerServerPush(
-            `🚨 LECTURE STARTING NOW!`,
-            `${nextClass.subject} is starting in ${nextClass.building} (Room ${nextClass.room})`
+            `⏱️ 5 Minutes Warning!`,
+            `Upcoming: ${nextClass.subject} in ${nextClass.building} Room ${nextClass.room}`
           );
         }
-        return;
+
+        const hours = Math.floor(diffMs / 3600000);
+        const minutes = Math.floor((diffMs % 3600000) / 60000);
+        const seconds = Math.floor((diffMs % 60000) / 1000);
+
+        timerEl.innerText = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        timerEl.style.color = 'var(--accent-cyan)'; // Cyan for normal countdown
       }
-
-      const diffMins = Math.floor(diffMs / 60000);
-      if (diffMins === 5 && lastAlertedId !== nextClass.id + '-5m') {
-        lastAlertedId = nextClass.id + '-5m';
-        this.notifications.sendAlert(
-          `⏱️ 5 Minutes Warning!`,
-          `Upcoming: ${nextClass.subject} in ${nextClass.building} Room ${nextClass.room}`,
-          false
-        );
-        // Also send server push for notification bar
-        this.triggerServerPush(
-          `⏱️ 5 Minutes Warning!`,
-          `Upcoming: ${nextClass.subject} in ${nextClass.building} Room ${nextClass.room}`
-        );
-      }
-
-      const hours = Math.floor(diffMs / 3600000);
-      const minutes = Math.floor((diffMs % 3600000) / 60000);
-      const seconds = Math.floor((diffMs % 60000) / 1000);
-
-      timerEl.innerText = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     };
 
     updateTimer();

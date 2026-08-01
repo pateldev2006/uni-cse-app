@@ -29,13 +29,6 @@
         </div>
       </div>
 
-      <!-- Desktop Nav Tabs -->
-      <nav class="desktop-nav">
-        <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
-        <button class="nav-btn" data-tab="schedule">Schedule</button>
-        <button class="nav-btn" data-tab="map">Campus Map</button>
-      </nav>
-
       <!-- Batch Dropdown Selector -->
       <div class="header-batch-selector" style="margin-left: auto;">
         <select id="app-batch-select" class="form-control" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: white; border-radius: 8px; padding: 0.35rem 0.6rem; font-size: 0.8rem; font-weight: 600; cursor: pointer; outline: none; transition: all 0.2s;">
@@ -66,7 +59,7 @@
               </div>
               <div>
                 <h3 style="font-size: 1.05rem;">Today's Uni Agenda</h3>
-                <p class="brand-subtitle">Batch A classes & labs</p>
+                <p class="brand-subtitle" id="dash-agenda-subtitle">Batch A classes & labs</p>
               </div>
             </div>
             <button class="btn-primary" id="open-add-modal-btn">
@@ -86,7 +79,7 @@
           <div class="glass-card-header">
             <div>
               <h2 style="font-size: 1.2rem;">Uni Weekly Timetable</h2>
-              <p class="brand-subtitle">Semester-V Computer Science (Batch A)</p>
+              <p class="brand-subtitle" id="weekly-timetable-subtitle">Semester-V Computer Science (Batch A)</p>
             </div>
             <button class="btn-primary" onclick="document.getElementById('open-add-modal-btn').click()">
               + Add Class
