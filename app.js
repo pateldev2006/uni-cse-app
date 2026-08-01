@@ -223,12 +223,7 @@ class EduPulseApp {
       try {
         const res = await fetch('./api/version');
         if (res.ok) {
-          const { version, testAlert } = await res.json();
-
-          if (testAlert) {
-            this.notifications.sendAlert('🚨 LIVE TEST NOTIFICATION', testAlert, true);
-          }
-
+          const { version } = await res.json();
           if (this.lastKnownVersion !== null && this.lastKnownVersion !== version) {
             console.log('🔄 Data updated!');
             await this.scheduleManager.fetchServerData();
