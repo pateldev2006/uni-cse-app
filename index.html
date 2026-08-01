@@ -21,13 +21,11 @@
   <div id="app-root">
     <!-- Top Header Bar -->
     <header class="top-header">
-      <div class="brand-container">
-        <div class="brand-logo">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-        </div>
+      <div class="brand-group">
+        <img src="logo.png" alt="Uni Logo" class="brand-logo">
         <div>
-          <h1 class="brand-title">Uni CSE</h1>
-          <div class="brand-subtitle">Batch A Timetable & Alerts</div>
+          <div class="brand-title">Uni CSE</div>
+          <div class="brand-subtitle" id="header-batch-subtitle">Batch A Timetable & Alerts</div>
         </div>
       </div>
 
@@ -38,6 +36,14 @@
         <button class="nav-btn" data-tab="map">Campus Map</button>
       </nav>
 
+      <!-- Batch Dropdown Selector -->
+      <div class="header-batch-selector" style="margin-left: auto;">
+        <select id="app-batch-select" class="form-control" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: white; border-radius: 8px; padding: 0.35rem 0.6rem; font-size: 0.8rem; font-weight: 600; cursor: pointer; outline: none; transition: all 0.2s;">
+          <option value="Batch A" style="background: #0d1222; color: white;">Batch A</option>
+          <option value="Batch B" style="background: #0d1222; color: white;">Batch B</option>
+          <option value="Batch C" style="background: #0d1222; color: white;">Batch C</option>
+        </select>
+      </div>
     </header>
 
     <!-- Main Container -->

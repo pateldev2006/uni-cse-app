@@ -25,11 +25,38 @@ class EduPulseApp {
   init() {
     this.setupTabNavigation();
     this.setupModal();
+    this.setupBatchSelector();
     this.renderDashboard();
     this.mapManager.render();
     this.startCountdownLoop();
     this.startLiveSyncLoop();
     this.registerServiceWorkerAndPush();
+  }
+
+  setupBatchSelector() {
+    const batchSelect = document.getElementById('app-batch-select');
+    const headerSubtitle = document.getElementById('header-batch-subtitle');
+    
+    if (batchSelect) {
+      batchSelect.value = this.scheduleManager.currentBatch;
+      if (headerSubtitle) {
+        headerSubtitle.innerText = `${this.scheduleManager.currentBatch} Timetable & Alerts`;
+      }
+      
+      batchSelect.addEventListener('change', (e) => {
+        const newBatch = e.target.value;
+        this.scheduleManager.switchBatch(newBatch);
+        if (headerSubtitle) {
+          headerSubtitle.innerText = `${newBatch} Timetable & Alerts`;
+        }
+        this.renderDashboard();
+        this.startCountdownLoop();
+        if (this.currentTab === 'schedule') {
+          this.scheduleManager.renderScheduleList('schedule-list-container');
+        }
+        this.notifications.showToast('🔄 Batch Switched', `Loaded ${newBatch} schedule`);
+      });
+    }
   }
 
 

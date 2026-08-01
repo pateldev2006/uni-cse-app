@@ -367,11 +367,40 @@ export const INITIAL_SCHEDULE = [
   }
 ];
 
+export function getInitialScheduleForBatch(batch) {
+  if (batch === 'Batch A') {
+    return INITIAL_SCHEDULE;
+  }
+  const suffix = batch.split(' ')[1] || 'B';
+  return INITIAL_SCHEDULE.map(c => {
+    let room = c.room;
+    let code = c.code;
+    let notes = c.notes;
+    
+    // Tweak labs for Batch B & C
+    if (code.includes('Lab') || notes.includes('Lab') || notes.includes('Batch A')) {
+      code = code.replace('(DAA-A)', `(DAA-${suffix})`).replace('CN-A', `CN-${suffix}`).replace('SE-A', `SE-${suffix}`).replace('DAA-A', `DAA-${suffix}`);
+      notes = notes.replace('Batch A', `Batch ${suffix}`).replace('DAA-A', `DAA-${suffix}`).replace('CN-A', `CN-${suffix}`).replace('SE-A', `SE-${suffix}`);
+      if (room === 'F001/A1') room = 'F001/B1';
+      if (room === 'F101/A1') room = 'F101/B1';
+    }
+    
+    return {
+      ...c,
+      id: c.id.replace('batchA', batch.toLowerCase().replace(' ', '')),
+      code,
+      room,
+      notes
+    };
+  });
+}
+
 export class ScheduleManager {
   constructor(onNavigateCallback, onDataChangeCallback) {
     localStorage.removeItem('edupulse_schedule');
     localStorage.removeItem('kpgu_schedule_v3');
 
+    this.currentBatch = localStorage.getItem('uni_active_batch') || 'Batch A';
     this.schedule = this.loadFromStorage();
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const todayIndex = new Date().getDay();
@@ -381,32 +410,41 @@ export class ScheduleManager {
     this.fetchServerData();
   }
 
+  getStorageKey() {
+    return `uni_${this.currentBatch.toLowerCase().replace(' ', '')}_schedule_v5`;
+  }
+
   loadFromStorage() {
-    const saved = localStorage.getItem('uni_batchA_schedule_v4');
+    const key = this.getStorageKey();
+    const saved = localStorage.getItem(key);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].id.includes('batchA')) {
+        if (Array.isArray(parsed) && parsed.length > 0) {
           return parsed;
         }
       } catch (e) { console.error(e); }
     }
-    return INITIAL_SCHEDULE;
+    return getInitialScheduleForBatch(this.currentBatch);
   }
 
   saveToStorage() {
-    localStorage.setItem('uni_batchA_schedule_v4', JSON.stringify(this.schedule));
+    const key = this.getStorageKey();
+    localStorage.setItem(key, JSON.stringify(this.schedule));
     this.syncToServer();
   }
 
   async fetchServerData() {
+    if (window.location.hostname.includes('github.io')) {
+      return;
+    }
     try {
-      const res = await fetch('./api/schedule');
+      const res = await fetch(`./api/schedule?batch=${encodeURIComponent(this.currentBatch)}`);
       if (res.ok) {
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
           this.schedule = data;
-          localStorage.setItem('uni_batchA_schedule_v4', JSON.stringify(this.schedule));
+          localStorage.setItem(this.getStorageKey(), JSON.stringify(this.schedule));
           if (this.onDataChange) this.onDataChange();
         }
       }
@@ -416,8 +454,11 @@ export class ScheduleManager {
   }
 
   async syncToServer() {
+    if (window.location.hostname.includes('github.io')) {
+      return;
+    }
     try {
-      await fetch('./api/schedule', {
+      await fetch(`./api/schedule?batch=${encodeURIComponent(this.currentBatch)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.schedule)
@@ -426,6 +467,15 @@ export class ScheduleManager {
       console.warn('Failed to sync to server:', e);
     }
   }
+
+  switchBatch(newBatch) {
+    this.currentBatch = newBatch;
+    localStorage.setItem('uni_active_batch', newBatch);
+    this.schedule = this.loadFromStorage();
+    this.fetchServerData();
+    if (this.onDataChange) this.onDataChange();
+  }
+
 
   getTodayClasses() {
     return this.schedule.filter(s => s.day.toLowerCase() === this.selectedDay.toLowerCase())
