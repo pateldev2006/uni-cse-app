@@ -9,18 +9,9 @@ export class NotificationManager {
   }
 
   async initPermission() {
-    if ('Notification' in window) {
-      if (Notification.permission === 'granted') {
-        this.permissionGranted = true;
-      } else if (Notification.permission !== 'denied') {
-        try {
-          const res = await Notification.requestPermission();
-          this.permissionGranted = (res === 'granted');
-        } catch (e) {
-          console.warn('Permission request error:', e);
-        }
-      }
-    }
+    // Disable HTML5 notification requests to prevent redirects to external browser
+    console.log('📱 HTML5 Notification request disabled to prevent external browser redirection.');
+    this.permissionGranted = true;
   }
 
   initAudioOnFirstTouch() {
