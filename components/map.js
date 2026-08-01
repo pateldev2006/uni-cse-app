@@ -124,41 +124,16 @@ export class CampusMapManager {
           </select>
         </div>
 
-        <div class="svg-map-wrapper">
-          <svg class="campus-svg" viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="#0B101D"/>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-            
-            <!-- Campus Pathway -->
-            <path d="M 250 50 L 250 400 M 100 220 L 600 220 M 350 140 L 350 330" stroke="#1E293B" stroke-width="18" stroke-linecap="round"/>
-            <path d="M 250 50 L 250 400 M 100 220 L 600 220 M 350 140 L 350 330" stroke="#334155" stroke-width="4" stroke-dasharray="8 8"/>
-            
-            <text x="250" y="430" fill="#9CA3AF" font-size="11" font-weight="bold" text-anchor="middle">Uni MAIN GATE ⬇</text>
-
-            ${Object.entries(BUILDINGS_DATA).map(([name, b]) => {
-              const isSelected = name === this.selectedBuilding;
-              return `
-                <g class="building-group ${isSelected ? 'active-target' : ''}" data-building="${name}">
-                  <rect x="${b.svgX}" y="${b.svgY}" width="${b.width}" height="${b.height}" rx="12" 
-                        fill="${b.color}" fill-opacity="${isSelected ? '0.35' : '0.15'}" 
-                        stroke="${b.color}" stroke-width="${isSelected ? '3' : '1.5'}"/>
-                  <text x="${b.svgX + b.width/2}" y="${b.svgY + b.height/2 - 8}" fill="#FFFFFF" font-size="12" font-weight="700" text-anchor="middle">${b.name}</text>
-                  <text x="${b.svgX + b.width/2}" y="${b.svgY + b.height/2 + 10}" fill="${b.color}" font-size="11" font-weight="600" text-anchor="middle">${b.code}</text>
-                  
-                  ${isSelected ? `
-                    <circle cx="${b.svgX + b.width/2}" cy="${b.svgY + b.height/2 + 28}" r="7" fill="#10B981">
-                      <animate attributeName="r" values="5;9;5" dur="1.5s" repeatCount="indefinite"/>
-                    </circle>
-                  ` : ''}
-                </g>
-              `;
-            }).join('')}
-          </svg>
+        <div class="google-map-wrapper" style="width: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-glass); margin-bottom: 1.2rem; height: 300px; position: relative;">
+          <iframe 
+            src="https://maps.google.com/maps?q=Drs.%20Kiran%20%26%20Pallavi%20Patel%20Global%20University%20Varnama%20Vadodara&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="100%" 
+            style="border:0; background: #0b101d;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
         </div>
 
         <div id="wayfinding-details-box" class="wayfinding-box">
@@ -208,18 +183,6 @@ export class CampusMapManager {
   }
 
   attachEvents() {
-    const groups = this.container.querySelectorAll('.building-group');
-    groups.forEach(g => {
-      g.addEventListener('click', () => {
-        this.selectedBuilding = g.getAttribute('data-building');
-        const bData = BUILDINGS_DATA[this.selectedBuilding];
-        if (bData && bData.rooms) {
-          this.selectedRoom = Object.keys(bData.rooms)[0] || 'J002';
-        }
-        this.render();
-      });
-    });
-
     const selectEl = this.container.querySelector('#map-building-filter');
     if (selectEl) {
       selectEl.addEventListener('change', (e) => {
