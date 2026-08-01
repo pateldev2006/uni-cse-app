@@ -376,18 +376,25 @@ export function getInitialScheduleForBatch(batch) {
     let room = c.room;
     let code = c.code;
     let notes = c.notes;
+    let subject = c.subject;
     
-    // Tweak labs for Batch B & C
-    if (code.includes('Lab') || notes.includes('Lab') || notes.includes('Batch A')) {
-      code = code.replace('(DAA-A)', `(DAA-${suffix})`).replace('CN-A', `CN-${suffix}`).replace('SE-A', `SE-${suffix}`).replace('DAA-A', `DAA-${suffix}`);
-      notes = notes.replace('Batch A', `Batch ${suffix}`).replace('DAA-A', `DAA-${suffix}`).replace('CN-A', `CN-${suffix}`).replace('SE-A', `SE-${suffix}`);
-      if (room === 'F001/A1') room = 'F001/B1';
-      if (room === 'F101/A1') room = 'F101/B1';
+    // Replace all occurrences of "Batch A", "-A" (like CN-A), and "MP-A" to match the selected batch suffix
+    subject = subject.replace(/Batch A/g, `Batch ${suffix}`).replace(/MP-A/g, `MP-${suffix}`).replace(/CN-A/g, `CN-${suffix}`).replace(/DAA-A/g, `DAA-${suffix}`).replace(/SE-A/g, `SE-${suffix}`);
+    code = code.replace(/Batch A/g, `Batch ${suffix}`).replace(/-A/g, `-${suffix}`);
+    notes = notes.replace(/Batch A/g, `Batch ${suffix}`).replace(/-A/g, `-${suffix}`);
+    
+    // Update batch-specific lab room numbers: e.g. F001/A1 -> F001/B1 (for Batch B) or F001/C1 (for Batch C)
+    if (room.includes('/A1')) {
+      room = room.replace('/A1', `/${suffix}1`);
+    }
+    if (room.includes('/A2')) {
+      room = room.replace('/A2', `/${suffix}2`);
     }
     
     return {
       ...c,
       id: c.id.replace('batchA', batch.toLowerCase().replace(' ', '')),
+      subject,
       code,
       room,
       notes
@@ -411,7 +418,7 @@ export class ScheduleManager {
   }
 
   getStorageKey() {
-    return `uni_${this.currentBatch.toLowerCase().replace(' ', '')}_schedule_v5`;
+    return `uni_${this.currentBatch.toLowerCase().replace(' ', '')}_schedule_v6`;
   }
 
   loadFromStorage() {
