@@ -1,11 +1,12 @@
 // Interactive Campus Map & Classroom Location Pathfinder Component for Uni Vadodara
-// v2 - Google Maps Integrated
+// v2 - Google Maps Integrated with dynamic classroom locating
 
 export const BUILDINGS_DATA = {
-  'KSET Engineering (J-Block)': {
+  'J-Block': {
     code: 'J-Block',
     name: 'KSET Engineering Dept (J-Block)',
     color: '#6366F1',
+    mapQuery: '22.169420,73.188820', // J-Block Engineering coordinates
     floors: ['Ground Floor'],
     rooms: {
       'J002': { floor: 'Ground Floor', wing: 'CSE Lecture Wing', type: 'Classroom (Division-2)', capacity: 80, path: ['Enter J-Block Main Entrance', 'Walk straight down Ground Floor Corridor', 'Room J002 is on your Right'] },
@@ -13,68 +14,66 @@ export const BUILDINGS_DATA = {
       'J003': { floor: 'Ground Floor', wing: 'CSE Lecture Wing', type: 'Classroom', capacity: 80, path: ['Enter J-Block Main Entrance', 'Room J003 is next to J002'] }
     }
   },
-  'Computer Labs (F-Block Ground)': {
-    code: 'F-Block G',
-    name: 'Computer Labs (F-Block Ground)',
+  'Computer Labs': {
+    code: 'F-Block Labs',
+    name: 'Computer Labs (F-Block)',
     color: '#06B6D4',
-    floors: ['Ground Floor'],
+    mapQuery: '22.168950,73.190100', // F-Block Computer Labs coordinates
+    floors: ['Ground Floor', '1st Floor'],
     rooms: {
       'F001/A1': { floor: 'Ground Floor', wing: 'Lab Wing A', type: 'DAA & Programming Lab', capacity: 35, path: ['Enter F-Block Entrance', 'Turn Left into Lab Corridor', 'Computer Lab F001/A1'] },
       'F001/B1': { floor: 'Ground Floor', wing: 'Lab Wing B', type: 'CN & SE Lab', capacity: 35, path: ['Enter F-Block Entrance', 'Walk straight to Section B', 'Computer Lab F001/B1'] },
-      'F001/D2': { floor: 'Ground Floor', wing: 'Lab Wing D', type: 'Mini Project Lab', capacity: 35, path: ['Enter F-Block Entrance', 'Turn Right down Wing D', 'Computer Lab F001/D2'] }
-    }
-  },
-  'Computer Labs (F-Block 1st Floor)': {
-    code: 'F-Block 1F',
-    name: 'Computer Labs (F-Block 1st Floor)',
-    color: '#10B981',
-    floors: ['1st Floor'],
-    rooms: {
+      'F001/D2': { floor: 'Ground Floor', wing: 'Lab Wing D', type: 'Mini Project Lab', capacity: 35, path: ['Enter F-Block Entrance', 'Turn Right down Wing D', 'Computer Lab F001/D2'] },
       'F101/A1': { floor: '1st Floor', wing: 'Lab Wing A', type: 'CN Lab', capacity: 35, path: ['Take F-Block Stairs to 1st Floor', 'Turn Left at Landing', 'Lab F101/A1'] },
       'F101/B1': { floor: '1st Floor', wing: 'Lab Wing B', type: 'Mini Project Lab', capacity: 35, path: ['Take F-Block Stairs to 1st Floor', 'Go straight into Section B', 'Lab F101/B1'] },
       'F101/C2': { floor: '1st Floor', wing: 'Lab Wing C', type: 'SE Lab', capacity: 35, path: ['Take F-Block Stairs to 1st Floor', 'Turn Right into Wing C', 'Lab F101/C2'] }
     }
   },
-  'Internet Lab (F-Block 2nd Floor)': {
+  'Internet Lab': {
     code: 'F-Block 2F',
     name: 'Advanced Labs (F-Block 2nd Floor)',
     color: '#EC4899',
+    mapQuery: '22.168950,73.190100', // F-Block 2nd floor (same location)
     floors: ['2nd Floor'],
     rooms: {
       'INT': { floor: '2nd Floor', wing: 'High Performance Computing', type: 'Internet Lab', capacity: 60, path: ['Take F-Block Central Stairs to 2nd Floor', 'Turn Left into High-Tech Wing', 'Internet Lab (INT)'] }
     }
   },
-  'A-Block Admin & Lecture Hall': {
+  'A-Block': {
     code: 'A-Block',
     name: 'Admin & Auditorium Block (A-Block)',
     color: '#F59E0B',
+    mapQuery: '22.168500,73.189100', // Admin block coordinates
     floors: ['2nd Floor'],
     rooms: {
       'M201': { floor: '2nd Floor', wing: 'Main Academic Wing', type: 'Lecture Hall', capacity: 100, path: ['Enter A-Block Main Atrium', 'Take Elevator to Floor 2', 'Lecture Room M201'] }
     }
   },
-  'Central Library & Canteen': {
+  'Central': {
     code: 'Central',
     name: 'Library & Canteen Plaza',
     color: '#8B5CF6',
+    mapQuery: '22.169150,73.189400', // Central Library coordinates
     floors: ['Ground Floor'],
     rooms: {
       'LIB': { floor: 'Ground Floor', wing: 'Central Plaza', type: 'Reading Room', capacity: 150, path: ['Enter Central Plaza Building', 'Main Library is on your left'] }
     }
   },
-  'Ayurved Hospital Block': {
+  'Hospital': {
     code: 'Hospital',
     name: 'Matrusri Davalba Ayurved Hospital',
     color: '#EF4444',
+    mapQuery: '22.168100,73.189500', // Hospital coordinates
     floors: ['Ground Floor'],
     rooms: {
       'OPD': { floor: 'Ground Floor', wing: 'Hospital Wing A', type: 'OPD Reception', capacity: 100, path: ['Enter Hospital Main Gate', 'OPD Registration counter is directly ahead'] }
     }
   },
-  'Hostels & Sports Complex': {
+  'Hostel': {
     code: 'Hostel',
     name: 'KPGU Student Hostels & Grounds',
     color: '#3B82F6',
+    mapQuery: '22.170500,73.189500', // Hostels coordinates
     floors: ['Ground Floor'],
     rooms: {
       'HOSTEL': { floor: 'Ground Floor', wing: 'Boys Hostel', type: 'Hostel Rooms Block', capacity: 200, path: ['Take North road towards hostels area', 'Hostel Block A is on the left'] }
@@ -85,12 +84,15 @@ export const BUILDINGS_DATA = {
 export class CampusMapManager {
   constructor(containerId) {
     this.container = document.getElementById(containerId);
-    this.selectedBuilding = 'KSET Engineering (J-Block)';
+    this.selectedBuilding = 'J-Block';
     this.selectedRoom = 'J002';
   }
 
   render() {
     if (!this.container) return;
+
+    const buildingInfo = BUILDINGS_DATA[this.selectedBuilding] || BUILDINGS_DATA['J-Block'];
+    const mapQuery = buildingInfo.mapQuery;
 
     this.container.innerHTML = `
       <div class="glass-card map-visualizer-card">
@@ -100,8 +102,8 @@ export class CampusMapManager {
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
             </div>
             <div>
-              <h3>Uni Campus & Lab Navigator</h3>
-              <p class="brand-subtitle">Find classrooms, computer labs, and indoor paths</p>
+              <h3>Uni Campus & Lab Locator</h3>
+              <p class="brand-subtitle">Google Maps Navigation + Indoor Path Finder</p>
             </div>
           </div>
         </div>
@@ -113,14 +115,25 @@ export class CampusMapManager {
           </div>
           
           <select id="map-building-filter" class="form-control" style="width: auto; min-width: 170px;">
-            ${Object.keys(BUILDINGS_DATA).map(b => `<option value="${b}" ${b === this.selectedBuilding ? 'selected' : ''}>${b}</option>`).join('')}
+            ${Object.keys(BUILDINGS_DATA).map(b => `<option value="${b}" ${b === this.selectedBuilding ? 'selected' : ''}>${BUILDINGS_DATA[b].name}</option>`).join('')}
           </select>
+        </div>
+
+        <!-- Current Building Name -->
+        <div style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 0.6rem 0.8rem; margin-bottom: 0.8rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.4rem;">
+            <span style="font-size: 1.1rem;">📍</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: white;">${buildingInfo.name}</span>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank" class="btn-primary" style="font-size: 0.72rem; padding: 0.35rem 0.6rem; text-decoration: none; display: flex; align-items: center; gap: 0.3rem;">
+            🗺️ Open App directions
+          </a>
         </div>
 
         <!-- Google Maps Embed Card -->
         <div class="google-map-wrapper" style="width: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-glass); margin-bottom: 1.2rem; height: 320px; position: relative;">
           <iframe 
-            src="https://maps.google.com/maps?q=Drs.%20Kiran%20%26%20Pallavi%20Patel%20Global%20University%20Varnama%20Vadodara&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+            src="https://maps.google.com/maps?q=${mapQuery}&z=19&ie=UTF8&iwloc=&output=embed" 
             width="100%" 
             height="100%" 
             style="border:0; background: #0b101d;" 
@@ -140,7 +153,7 @@ export class CampusMapManager {
   }
 
   getWayfindingHTML() {
-    const buildingInfo = BUILDINGS_DATA[this.selectedBuilding];
+    const buildingInfo = BUILDINGS_DATA[this.selectedBuilding] || BUILDINGS_DATA['J-Block'];
     if (!buildingInfo) return '<p class="text-muted">Select a location to view directions</p>';
 
     const roomInfo = buildingInfo.rooms[this.selectedRoom] || Object.values(buildingInfo.rooms)[0] || {

@@ -1,5 +1,5 @@
-// Uni EduPulse Service Worker v17 (Web Push + System Notification Bar)
-const CACHE_NAME = 'uni-v17-webpush';
+// Uni EduPulse Service Worker v18 (Web Push + System Notification Bar)
+const CACHE_NAME = 'uni-v18-webpush';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

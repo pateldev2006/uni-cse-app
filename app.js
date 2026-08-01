@@ -1,9 +1,9 @@
 // Uni Vadodara CSE Main Application Orchestrator (Batch A)
 // v9 - Web Push Notification System
 
-import { CampusMapManager, BUILDINGS_DATA } from './components/map_v2.js?v=17';
-import { NotificationManager } from './components/alerts.js?v=17';
-import { ScheduleManager } from './components/schedule.js?v=17';
+import { CampusMapManager, BUILDINGS_DATA } from './components/map_v2.js?v=18';
+import { NotificationManager } from './components/alerts.js?v=18';
+import { ScheduleManager } from './components/schedule.js?v=18';
 
 class EduPulseApp {
   constructor() {
