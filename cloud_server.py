@@ -148,7 +148,7 @@ def schedule_monitor_thread():
             time.sleep(30)
             
             # Loop through all active batches
-            batches = ['Batch A', 'Batch B', 'Batch C']
+            batches = ['Batch A', 'Batch B', 'Batch C', 'Batch D']
             for batch_name in batches:
                 schedule_file = get_schedule_file(batch_name)
                 # Fallback for Batch A if batch-specific file is missing
