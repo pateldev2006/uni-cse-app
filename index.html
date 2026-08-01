@@ -2,6 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script>
+    const CURRENT_VERSION = 'v21';
+    if (localStorage.getItem('app_version') !== CURRENT_VERSION) {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          for (const registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          for (const name of names) {
+            caches.delete(name);
+          }
+        });
+      }
+      localStorage.setItem('app_version', CURRENT_VERSION);
+      localStorage.removeItem('uni_batcha_schedule_v8');
+      localStorage.removeItem('uni_batchb_schedule_v8');
+      localStorage.removeItem('uni_batchc_schedule_v8');
+      localStorage.removeItem('uni_batchd_schedule_v8');
+      localStorage.removeItem('uni_batcha_schedule_v9');
+      localStorage.removeItem('uni_batchb_schedule_v9');
+      localStorage.removeItem('uni_batchc_schedule_v9');
+      localStorage.removeItem('uni_batchd_schedule_v9');
+      setTimeout(() => {
+        window.location.reload(true);
+      }, 300);
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Uni CSE - Lecture Alerts & Campus Navigator</title>
   
@@ -14,7 +45,7 @@
   <meta name="apple-mobile-web-app-title" content="Uni CSE">
   <link rel="apple-touch-icon" href="/icon-192.png">
   
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="stylesheet" href="styles.css?v=21">
 </head>
 <body>
 
@@ -191,6 +222,6 @@
     </div>
   </div>
 
-  <script type="module" src="app.js?v=20"></script>
+  <script type="module" src="app.js?v=21"></script>
 </body>
 </html>
