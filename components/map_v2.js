@@ -120,14 +120,9 @@ export class CampusMapManager {
         </div>
 
         <!-- Current Building Name -->
-        <div style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 0.6rem 0.8rem; margin-bottom: 0.8rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
-          <div style="display: flex; align-items: center; gap: 0.4rem;">
-            <span style="font-size: 1.1rem;">📍</span>
-            <span style="font-size: 0.8rem; font-weight: 700; color: white;">${buildingInfo.name}</span>
-          </div>
-          <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank" class="btn-primary" style="font-size: 0.72rem; padding: 0.35rem 0.6rem; text-decoration: none; display: flex; align-items: center; gap: 0.3rem;">
-            🗺️ Open App directions
-          </a>
+        <div style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 0.6rem 0.8rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.1rem;">📍</span>
+          <span style="font-size: 0.8rem; font-weight: 700; color: white;">${buildingInfo.name}</span>
         </div>
 
         <!-- Google Maps Embed Card -->
@@ -139,7 +134,8 @@ export class CampusMapManager {
             style="border:0; background: #0b101d;" 
             allowfullscreen="" 
             loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
+            referrerpolicy="no-referrer-when-downgrade"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
           </iframe>
         </div>
 
