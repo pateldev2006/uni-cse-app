@@ -72,11 +72,11 @@ def send_onesignal_push(title, body):
 # Serve Web App Frontend
 @app.route('/')
 def serve_index():
-    return send_from_directory('.', 'index.html')
+    return send_from_directory(app.root_path, 'index.html')
 
 @app.route('/<path:path>')
 def serve_static(path):
-    return send_from_directory('.', path)
+    return send_from_directory(app.root_path, path)
 
 # APIs
 @app.route('/api/schedule', methods=['GET', 'POST'])
