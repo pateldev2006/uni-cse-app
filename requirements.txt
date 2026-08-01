@@ -3,3 +3,4 @@ pywebpush
 cryptography
 py-vapid
 flask-cors
+gunicorn
