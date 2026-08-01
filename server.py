@@ -53,7 +53,7 @@ def send_push_to_all(title, body):
     
     # 1. Send via OneSignal to native Android app
     onesignal_app_id = "84c65846-6a2e-4bc2-86db-a0881890aa3f"
-    onesignal_rest_key = "os_v2_app_qtdfqrtkfzf4fbw3ucebrefkh6v3at2bcppuzveqvu2fg535bxdijwkj4qmz24lv46nfogfrhu25zrrs6rvvljolmyglwn3src7a4oq"
+    onesignal_rest_key = os.environ.get('ONESIGNAL_REST_KEY', '')
     
     onesignal_payload = {
         "app_id": onesignal_app_id,
