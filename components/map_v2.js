@@ -91,9 +91,6 @@ export class CampusMapManager {
   render() {
     if (!this.container) return;
 
-    const buildingInfo = BUILDINGS_DATA[this.selectedBuilding] || BUILDINGS_DATA['J-Block'];
-    const mapQuery = buildingInfo.mapQuery;
-
     this.container.innerHTML = `
       <div class="glass-card map-visualizer-card">
         <div class="glass-card-header">
@@ -102,8 +99,8 @@ export class CampusMapManager {
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
             </div>
             <div>
-              <h3>Uni Campus & Lab Locator</h3>
-              <p class="brand-subtitle">Google Maps Navigation + Indoor Path Finder</p>
+              <h3>Uni Classroom Finder</h3>
+              <p class="brand-subtitle">Find classrooms, computer labs, and indoor paths</p>
             </div>
           </div>
         </div>
@@ -117,26 +114,6 @@ export class CampusMapManager {
           <select id="map-building-filter" class="form-control" style="width: auto; min-width: 170px;">
             ${Object.keys(BUILDINGS_DATA).map(b => `<option value="${b}" ${b === this.selectedBuilding ? 'selected' : ''}>${BUILDINGS_DATA[b].name}</option>`).join('')}
           </select>
-        </div>
-
-        <!-- Current Building Name -->
-        <div style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 0.6rem 0.8rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span style="font-size: 1.1rem;">📍</span>
-          <span style="font-size: 0.8rem; font-weight: 700; color: white;">${buildingInfo.name}</span>
-        </div>
-
-        <!-- Google Maps Embed Card -->
-        <div class="google-map-wrapper" style="width: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-glass); margin-bottom: 1.2rem; height: 320px; position: relative;">
-          <iframe 
-            src="https://maps.google.com/maps?q=${mapQuery}&z=19&ie=UTF8&iwloc=&output=embed" 
-            width="100%" 
-            height="100%" 
-            style="border:0; background: #0b101d;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade"
-            sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
-          </iframe>
         </div>
 
         <div id="wayfinding-details-box" class="wayfinding-box">
