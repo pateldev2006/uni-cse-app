@@ -1,5 +1,5 @@
-// Uni EduPulse Service Worker v11 (Web Push + System Notification Bar)
-const CACHE_NAME = 'uni-v11-webpush';
+// Uni EduPulse Service Worker v12 (Web Push + System Notification Bar)
+const CACHE_NAME = 'uni-v12-webpush';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -41,12 +41,12 @@ self.addEventListener('push', (event) => {
   console.log('[SW] Push event received!');
 
   let data = {
-    title: '🚨 KPGU Lecture Alert',
-    body: 'Upcoming Batch A class starting soon!',
+    title: '🚨 Uni Lecture Alert',
+    body: 'Upcoming class starting soon!',
     icon: './icon-192.png',
     badge: './icon-192.png',
     vibrate: [400, 150, 400, 150, 600],
-    tag: 'kpgu-push-' + Date.now(),
+    tag: 'uni-push-' + Date.now(),
     renotify: true,
     requireInteraction: true
   };
@@ -107,15 +107,15 @@ self.addEventListener('notificationclick', (event) => {
 // Handle message from app (fallback for non-push scenarios)
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'TRIGGER_NOTIFICATION') {
-    const title = event.data.title || '🚨 KPGU Lecture Alert';
-    const body = event.data.body || 'Upcoming Batch A class starting!';
+    const title = event.data.title || '🚨 Uni Lecture Alert';
+    const body = event.data.body || 'Upcoming class starting!';
 
     self.registration.showNotification(title, {
       body: body,
       icon: './icon-192.png',
       badge: './icon-192.png',
       vibrate: [400, 150, 400, 150, 600],
-      tag: 'kpgu-msg-' + Date.now(),
+      tag: 'uni-msg-' + Date.now(),
       renotify: true,
       requireInteraction: true
     });

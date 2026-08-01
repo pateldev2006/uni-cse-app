@@ -12,6 +12,13 @@ os.makedirs(DATA_DIR, exist_ok=True)
 SCHEDULE_FILE = os.path.join(DATA_DIR, 'schedule.json')
 SUBS_FILE = os.path.join(DATA_DIR, 'push_subscriptions.json')
 
+def get_schedule_file(batch_name):
+    # Normalize name to a safe filename
+    safe_name = "".join(c for c in batch_name if c.isalnum()).lower()
+    if not safe_name:
+        safe_name = "batcha"
+    return os.path.join(DATA_DIR, f'schedule_{safe_name}.json')
+
 LAST_UPDATE_TIME = time.time()
 TEST_ALERT_MESSAGE = None
 PUSH_SUBSCRIPTIONS = []
@@ -75,17 +82,23 @@ def serve_static(path):
 @app.route('/api/schedule', methods=['GET', 'POST'])
 def api_schedule():
     global LAST_UPDATE_TIME
+    batch = request.args.get('batch', 'Batch A')
+    schedule_file = get_schedule_file(batch)
+    
     if request.method == 'POST':
         try:
             data = request.get_json()
-            with open(SCHEDULE_FILE, 'w', encoding='utf-8') as f:
+            with open(schedule_file, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2)
             LAST_UPDATE_TIME = time.time()
             return jsonify({'status': 'success', 'version': LAST_UPDATE_TIME})
         except Exception as e:
             return jsonify({'status': 'error', 'message': str(e)}), 500
     else:
-        if os.path.exists(SCHEDULE_FILE):
+        if os.path.exists(schedule_file):
+            with open(schedule_file, 'r', encoding='utf-8') as f:
+                return jsonify(json.load(f))
+        elif batch == 'Batch A' and os.path.exists(SCHEDULE_FILE):
             with open(SCHEDULE_FILE, 'r', encoding='utf-8') as f:
                 return jsonify(json.load(f))
         return jsonify([])
@@ -134,58 +147,65 @@ def schedule_monitor_thread():
         try:
             time.sleep(30)
             
-            # Load schedule
-            if not os.path.exists(SCHEDULE_FILE):
-                continue
-                
-            with open(SCHEDULE_FILE, 'r', encoding='utf-8') as f:
-                schedule = json.load(f)
-                
-            if not isinstance(schedule, list):
-                continue
-                
-            # Get current day and time in IST (UTC+5:30)
-            utc_now = datetime.datetime.utcnow()
-            ist_now = utc_now + datetime.timedelta(hours=5, minutes=30)
-            current_day = ist_now.strftime('%A')
-            current_time_minutes = ist_now.hour * 60 + ist_now.minute
-            
-            # Filter schedule for today
-            today_classes = [c for c in schedule if c.get('day', '').lower() == current_day.lower()]
-            
-            for c in today_classes:
-                start_time_str = c.get('startTime', '')
-                if not start_time_str:
+            # Loop through all active batches
+            batches = ['Batch A', 'Batch B', 'Batch C']
+            for batch_name in batches:
+                schedule_file = get_schedule_file(batch_name)
+                # Fallback for Batch A if batch-specific file is missing
+                if batch_name == 'Batch A' and not os.path.exists(schedule_file):
+                    schedule_file = SCHEDULE_FILE
+                    
+                if not os.path.exists(schedule_file):
                     continue
-                try:
-                    sh, sm = map(int, start_time_str.split(':'))
-                    start_minutes = sh * 60 + sm
                     
-                    # 1. Check for 5-minute warning
-                    five_min_warning_minutes = start_minutes - 5
-                    if current_time_minutes == five_min_warning_minutes:
-                        alert_key = f"{c.get('id')}-5m-{ist_now.strftime('%Y-%m-%d')}"
-                        if alert_key not in alerted_keys:
-                            alerted_keys.add(alert_key)
-                            title = "⏱️ 5 Minutes Warning!"
-                            body = f"Upcoming: {c.get('subject')} in {c.get('building')} Room {c.get('room')}"
-                            print(f"⏰ Auto-firing 5m alert: {title} - {body}")
-                            send_onesignal_push(title, body)
-                            
-                    # 2. Check for start warning
-                    if current_time_minutes == start_minutes:
-                        alert_key = f"{c.get('id')}-start-{ist_now.strftime('%Y-%m-%d')}"
-                        if alert_key not in alerted_keys:
-                            alerted_keys.add(alert_key)
-                            title = "🚨 LECTURE STARTING NOW!"
-                            body = f"{c.get('subject')} is starting in {c.get('building')} (Room {c.get('room')})"
-                            print(f"⏰ Auto-firing start alert: {title} - {body}")
-                            send_onesignal_push(title, body)
-                except Exception as ex:
-                    print("Error checking class:", ex)
+                with open(schedule_file, 'r', encoding='utf-8') as f:
+                    schedule = json.load(f)
                     
+                if not isinstance(schedule, list):
+                    continue
+                    
+                # Get current day and time in IST (UTC+5:30)
+                utc_now = datetime.datetime.utcnow()
+                ist_now = utc_now + datetime.timedelta(hours=5, minutes=30)
+                current_day = ist_now.strftime('%A')
+                current_time_minutes = ist_now.hour * 60 + ist_now.minute
+                
+                # Filter schedule for today
+                today_classes = [c for c in schedule if c.get('day', '').lower() == current_day.lower()]
+                
+                for c in today_classes:
+                    start_time_str = c.get('startTime', '')
+                    if not start_time_str:
+                        continue
+                    try:
+                        sh, sm = map(int, start_time_str.split(':'))
+                        start_minutes = sh * 60 + sm
+                        
+                        # 1. Check for 5-minute warning
+                        five_min_warning_minutes = start_minutes - 5
+                        if current_time_minutes == five_min_warning_minutes:
+                            alert_key = f"{batch_name}-{c.get('id')}-5m-{ist_now.strftime('%Y-%m-%d')}"
+                            if alert_key not in alerted_keys:
+                                alerted_keys.add(alert_key)
+                                title = f"⏱️ {batch_name} - 5 Minutes Warning!"
+                                body = f"Upcoming: {c.get('subject')} in {c.get('building')} Room {c.get('room')}"
+                                print(f"⏰ Auto-firing alert: {title} - {body}")
+                                send_onesignal_push(title, body)
+                                
+                        # 2. Check for start warning
+                        if current_time_minutes == start_minutes:
+                            alert_key = f"{batch_name}-{c.get('id')}-start-{ist_now.strftime('%Y-%m-%d')}"
+                            if alert_key not in alerted_keys:
+                                alerted_keys.add(alert_key)
+                                title = f"🚨 {batch_name} LECTURE STARTING NOW!"
+                                body = f"{c.get('subject')} is starting in {c.get('building')} (Room {c.get('room')})"
+                                print(f"⏰ Auto-firing alert: {title} - {body}")
+                                send_onesignal_push(title, body)
+                    except Exception as ex:
+                        print("Error checking class:", ex)
+                        
             # Clean up old alerts to prevent memory leak
-            if len(alerted_keys) > 100:
+            if len(alerted_keys) > 150:
                 alerted_keys.clear()
                 
         except Exception as e:

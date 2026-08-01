@@ -53,6 +53,7 @@ class EduPulseApp {
         this.startCountdownLoop();
         if (this.currentTab === 'schedule') {
           this.scheduleManager.renderScheduleList('schedule-list-container');
+          this.setupDayFilters();
         }
         this.notifications.showToast('🔄 Batch Switched', `Loaded ${newBatch} schedule`);
       });
