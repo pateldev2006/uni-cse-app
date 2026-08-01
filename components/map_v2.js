@@ -1,11 +1,11 @@
 // Interactive Campus Map & Classroom Location Pathfinder Component for Uni Vadodara
+// v2 - Google Maps Integrated
 
 export const BUILDINGS_DATA = {
   'KSET Engineering (J-Block)': {
     code: 'J-Block',
     name: 'KSET Engineering Dept (J-Block)',
     color: '#6366F1',
-    svgX: 80, svgY: 100, width: 170, height: 120,
     floors: ['Ground Floor'],
     rooms: {
       'J002': { floor: 'Ground Floor', wing: 'CSE Lecture Wing', type: 'Classroom (Division-2)', capacity: 80, path: ['Enter J-Block Main Entrance', 'Walk straight down Ground Floor Corridor', 'Room J002 is on your Right'] },
@@ -17,7 +17,6 @@ export const BUILDINGS_DATA = {
     code: 'F-Block G',
     name: 'Computer Labs (F-Block Ground)',
     color: '#06B6D4',
-    svgX: 420, svgY: 100, width: 180, height: 110,
     floors: ['Ground Floor'],
     rooms: {
       'F001/A1': { floor: 'Ground Floor', wing: 'Lab Wing A', type: 'DAA & Programming Lab', capacity: 35, path: ['Enter F-Block Entrance', 'Turn Left into Lab Corridor', 'Computer Lab F001/A1'] },
@@ -29,7 +28,6 @@ export const BUILDINGS_DATA = {
     code: 'F-Block 1F',
     name: 'Computer Labs (F-Block 1st Floor)',
     color: '#10B981',
-    svgX: 420, svgY: 220, width: 180, height: 100,
     floors: ['1st Floor'],
     rooms: {
       'F101/A1': { floor: '1st Floor', wing: 'Lab Wing A', type: 'CN Lab', capacity: 35, path: ['Take F-Block Stairs to 1st Floor', 'Turn Left at Landing', 'Lab F101/A1'] },
@@ -41,7 +39,6 @@ export const BUILDINGS_DATA = {
     code: 'F-Block 2F',
     name: 'Advanced Labs (F-Block 2nd Floor)',
     color: '#EC4899',
-    svgX: 420, svgY: 330, width: 180, height: 80,
     floors: ['2nd Floor'],
     rooms: {
       'INT': { floor: '2nd Floor', wing: 'High Performance Computing', type: 'Internet Lab', capacity: 60, path: ['Take F-Block Central Stairs to 2nd Floor', 'Turn Left into High-Tech Wing', 'Internet Lab (INT)'] }
@@ -51,7 +48,6 @@ export const BUILDINGS_DATA = {
     code: 'A-Block',
     name: 'Admin & Auditorium Block (A-Block)',
     color: '#F59E0B',
-    svgX: 80, svgY: 330, width: 170, height: 80,
     floors: ['2nd Floor'],
     rooms: {
       'M201': { floor: '2nd Floor', wing: 'Main Academic Wing', type: 'Lecture Hall', capacity: 100, path: ['Enter A-Block Main Atrium', 'Take Elevator to Floor 2', 'Lecture Room M201'] }
@@ -61,7 +57,6 @@ export const BUILDINGS_DATA = {
     code: 'Central',
     name: 'Library & Canteen Plaza',
     color: '#8B5CF6',
-    svgX: 270, svgY: 210, width: 130, height: 90,
     floors: ['Ground Floor'],
     rooms: {
       'LIB': { floor: 'Ground Floor', wing: 'Central Plaza', type: 'Reading Room', capacity: 150, path: ['Enter Central Plaza Building', 'Main Library is on your left'] }
@@ -71,7 +66,6 @@ export const BUILDINGS_DATA = {
     code: 'Hospital',
     name: 'Matrusri Davalba Ayurved Hospital',
     color: '#EF4444',
-    svgX: 270, svgY: 315, width: 130, height: 95,
     floors: ['Ground Floor'],
     rooms: {
       'OPD': { floor: 'Ground Floor', wing: 'Hospital Wing A', type: 'OPD Reception', capacity: 100, path: ['Enter Hospital Main Gate', 'OPD Registration counter is directly ahead'] }
@@ -81,7 +75,6 @@ export const BUILDINGS_DATA = {
     code: 'Hostel',
     name: 'KPGU Student Hostels & Grounds',
     color: '#3B82F6',
-    svgX: 80, svgY: 20, width: 520, height: 60,
     floors: ['Ground Floor'],
     rooms: {
       'HOSTEL': { floor: 'Ground Floor', wing: 'Boys Hostel', type: 'Hostel Rooms Block', capacity: 200, path: ['Take North road towards hostels area', 'Hostel Block A is on the left'] }
@@ -124,7 +117,8 @@ export class CampusMapManager {
           </select>
         </div>
 
-        <div class="google-map-wrapper" style="width: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-glass); margin-bottom: 1.2rem; height: 300px; position: relative;">
+        <!-- Google Maps Embed Card -->
+        <div class="google-map-wrapper" style="width: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-glass); margin-bottom: 1.2rem; height: 320px; position: relative;">
           <iframe 
             src="https://maps.google.com/maps?q=Drs.%20Kiran%20%26%20Pallavi%20Patel%20Global%20University%20Varnama%20Vadodara&t=&z=16&ie=UTF8&iwloc=&output=embed" 
             width="100%" 

@@ -9,7 +9,7 @@ const ASSETS_TO_CACHE = [
   './icon-192.png',
   './icon-512.png',
   './logo.png',
-  './components/map.js',
+  './components/map_v2.js',
   './components/alerts.js',
   './components/schedule.js'
 ];
