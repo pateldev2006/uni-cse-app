@@ -266,61 +266,35 @@ class EduPulseApp {
         `;
       } else {
         heroContainer.innerHTML = `
-          <div class="glass-card-header">
-            <div class="card-title-group">
-              <div class="card-icon" style="background: rgba(6,182,212,0.15); color: var(--accent-cyan);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+            <!-- Top Header Details -->
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; overflow: hidden;">
+                <span class="live-badge" style="font-size: 0.65rem; padding: 0.2rem 0.55rem; flex-shrink: 0; background: ${nextClass.isLiveNow ? 'rgba(16, 185, 129, 0.12)' : 'rgba(99, 102, 241, 0.12)'}; border-color: ${nextClass.isLiveNow ? 'rgba(16, 185, 129, 0.3)' : 'rgba(99, 102, 241, 0.3)'}; color: ${nextClass.isLiveNow ? '#34D399' : '#A5B4FC'};">
+                  <span class="live-dot" style="background-color: ${nextClass.isLiveNow ? 'var(--accent-emerald)' : 'var(--accent-primary)'}; box-shadow: 0 0 8px ${nextClass.isLiveNow ? 'var(--accent-emerald)' : 'var(--accent-primary)'};"></span>
+                  ${nextClass.isLiveNow ? 'LIVE' : 'UPCOMING'}
+                </span>
+                <h3 style="font-size: 1.05rem; font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  ${nextClass.subject}
+                </h3>
               </div>
-              <div>
-                <h3 style="font-size: 1.05rem;">Next Upcoming Batch A Lecture</h3>
-                <p class="brand-subtitle">Real-time alert countdown & classroom</p>
-              </div>
-            </div>
-            <span class="live-badge">
-              <span class="live-dot"></span> ${nextClass.isLiveNow ? 'CLASS IN PROGRESS' : 'NEXT UP'}
-            </span>
-          </div>
-
-          <div style="display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;">
-            <h2 style="font-size: 1.4rem; color: white;">${nextClass.subject}</h2>
-            <span style="background: rgba(99, 102, 241, 0.2); color: #A5B4FC; padding: 0.15rem 0.5rem; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">
-              ${nextClass.code}
-            </span>
-          </div>
-
-          <div class="timer-box">
-            <div>
-              <div class="timer-label">Time Remaining</div>
-              <div class="timer-display" id="dash-countdown-timer">00:00:00</div>
-            </div>
-            <button id="dash-locate-btn" class="btn-primary">
-              📍 Locate Classroom
-            </button>
-          </div>
-
-          <div class="lecture-meta-row">
-            <div class="meta-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <div>
-                <div class="meta-label">Slot Time</div>
-                <div class="meta-value">${nextClass.startTime} - ${nextClass.endTime}</div>
+              <div id="dash-countdown-timer" style="font-family: var(--font-title); font-size: 1.35rem; font-weight: 800; color: var(--accent-cyan); flex-shrink: 0; font-variant-numeric: tabular-nums;">
+                00:00:00
               </div>
             </div>
 
-            <div class="meta-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <div>
-                <div class="meta-label">Location</div>
-                <div class="meta-value">${nextClass.building} &bull; Room ${nextClass.room}</div>
+            <!-- Bottom Metadata Strip -->
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; background: rgba(5, 7, 15, 0.5); padding: 0.6rem 0.9rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.02); font-size: 0.78rem; color: var(--text-muted);">
+              <div style="display: flex; align-items: center; gap: 0.4rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                <span>🕒 <strong>${nextClass.startTime}-${nextClass.endTime}</strong></span>
+                <span style="opacity: 0.4;">|</span>
+                <span>🚪 Room <strong>${nextClass.room}</strong></span>
+                <span style="opacity: 0.4;">|</span>
+                <span>👤 ${nextClass.professor}</span>
               </div>
-            </div>
-
-            <div class="meta-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <div>
-                <div class="meta-label">Faculty</div>
-                <div class="meta-value">${nextClass.professor}</div>
-              </div>
+              <button id="dash-locate-btn" class="btn-primary" style="padding: 0.35rem 0.75rem; font-size: 0.72rem; border-radius: 6px; box-shadow: none; flex-shrink: 0;">
+                📍 Locate
+              </button>
             </div>
           </div>
         `;

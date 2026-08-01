@@ -1,60 +1,90 @@
 // Interactive Campus Map & Classroom Location Pathfinder Component for Uni Vadodara
 
 export const BUILDINGS_DATA = {
-  'Computer Dept Ground Floor': {
-    code: 'J002',
-    name: 'FE&T Computer Department (J-Block)',
+  'KSET Engineering (J-Block)': {
+    code: 'J-Block',
+    name: 'KSET Engineering Dept (J-Block)',
     color: '#6366F1',
-    svgX: 160, svgY: 100, width: 170, height: 120,
+    svgX: 80, svgY: 100, width: 170, height: 120,
     floors: ['Ground Floor'],
     rooms: {
-      'J002': { floor: 'Ground Floor', wing: 'CSE Lecture Wing', type: 'Classroom (Division-2)', capacity: 80, elevator: 'Ground Floor', path: ['Enter KSET Main Entrance', 'Walk straight down Ground Floor Corridor', 'Room J002 is on your Right'] },
-      'J001': { floor: 'Ground Floor', wing: 'CSE Lecture Wing', type: 'Classroom', capacity: 80, elevator: 'Ground Floor', path: ['Enter KSET Main Entrance', 'Turn Left at Ground Floor Corridor', 'Room J001'] },
-      'J003': { floor: 'Ground Floor', wing: 'CSE Lecture Wing', type: 'Classroom', capacity: 80, elevator: 'Ground Floor', path: ['Enter KSET Main Entrance', 'Room J003 is next to J002'] }
+      'J002': { floor: 'Ground Floor', wing: 'CSE Lecture Wing', type: 'Classroom (Division-2)', capacity: 80, path: ['Enter J-Block Main Entrance', 'Walk straight down Ground Floor Corridor', 'Room J002 is on your Right'] },
+      'J001': { floor: 'Ground Floor', wing: 'CSE Lecture Wing', type: 'Classroom', capacity: 80, path: ['Enter J-Block Main Entrance', 'Turn Left at Ground Floor Corridor', 'Room J001'] },
+      'J003': { floor: 'Ground Floor', wing: 'CSE Lecture Wing', type: 'Classroom', capacity: 80, path: ['Enter J-Block Main Entrance', 'Room J003 is next to J002'] }
     }
   },
-  'Computer Lab Ground Floor': {
-    code: 'F001',
-    name: 'Computer Labs Complex (F-Block Ground)',
+  'Computer Labs (F-Block Ground)': {
+    code: 'F-Block G',
+    name: 'Computer Labs (F-Block Ground)',
     color: '#06B6D4',
-    svgX: 400, svgY: 90, width: 180, height: 130,
+    svgX: 420, svgY: 100, width: 180, height: 110,
     floors: ['Ground Floor'],
     rooms: {
-      'F001/A1': { floor: 'Ground Floor', wing: 'Lab Wing A', type: 'DAA & Programming Lab', capacity: 35, elevator: 'N/A', path: ['Enter F-Block Entrance', 'Turn Left into Lab Corridor', 'Computer Lab F001/A1'] },
-      'F001/B1': { floor: 'Ground Floor', wing: 'Lab Wing B', type: 'CN & SE Lab', capacity: 35, elevator: 'N/A', path: ['Enter F-Block Entrance', 'Walk straight to Section B', 'Computer Lab F001/B1'] },
-      'F001/D2': { floor: 'Ground Floor', wing: 'Lab Wing D', type: 'Mini Project Lab', capacity: 35, elevator: 'N/A', path: ['Enter F-Block Entrance', 'Turn Right down Wing D', 'Computer Lab F001/D2'] }
+      'F001/A1': { floor: 'Ground Floor', wing: 'Lab Wing A', type: 'DAA & Programming Lab', capacity: 35, path: ['Enter F-Block Entrance', 'Turn Left into Lab Corridor', 'Computer Lab F001/A1'] },
+      'F001/B1': { floor: 'Ground Floor', wing: 'Lab Wing B', type: 'CN & SE Lab', capacity: 35, path: ['Enter F-Block Entrance', 'Walk straight to Section B', 'Computer Lab F001/B1'] },
+      'F001/D2': { floor: 'Ground Floor', wing: 'Lab Wing D', type: 'Mini Project Lab', capacity: 35, path: ['Enter F-Block Entrance', 'Turn Right down Wing D', 'Computer Lab F001/D2'] }
     }
   },
-  'Computer Lab 1st Floor': {
-    code: 'F101',
-    name: 'Computer Labs Complex (F-Block 1st Floor)',
+  'Computer Labs (F-Block 1st Floor)': {
+    code: 'F-Block 1F',
+    name: 'Computer Labs (F-Block 1st Floor)',
     color: '#10B981',
-    svgX: 400, svgY: 260, width: 180, height: 120,
+    svgX: 420, svgY: 220, width: 180, height: 100,
     floors: ['1st Floor'],
     rooms: {
-      'F101/A1': { floor: '1st Floor', wing: 'Lab Wing A', type: 'CN Lab', capacity: 35, elevator: 'Stairs F1', path: ['Take F-Block Stairs to 1st Floor', 'Turn Left at Landing', 'Lab F101/A1'] },
-      'F101/B1': { floor: '1st Floor', wing: 'Lab Wing B', type: 'Mini Project Lab', capacity: 35, elevator: 'Stairs F1', path: ['Take F-Block Stairs to 1st Floor', 'Go straight into Section B', 'Lab F101/B1'] },
-      'F101/C2': { floor: '1st Floor', wing: 'Lab Wing C', type: 'SE Lab', capacity: 35, elevator: 'Stairs F1', path: ['Take F-Block Stairs to 1st Floor', 'Turn Right into Wing C', 'Lab F101/C2'] }
+      'F101/A1': { floor: '1st Floor', wing: 'Lab Wing A', type: 'CN Lab', capacity: 35, path: ['Take F-Block Stairs to 1st Floor', 'Turn Left at Landing', 'Lab F101/A1'] },
+      'F101/B1': { floor: '1st Floor', wing: 'Lab Wing B', type: 'Mini Project Lab', capacity: 35, path: ['Take F-Block Stairs to 1st Floor', 'Go straight into Section B', 'Lab F101/B1'] },
+      'F101/C2': { floor: '1st Floor', wing: 'Lab Wing C', type: 'SE Lab', capacity: 35, path: ['Take F-Block Stairs to 1st Floor', 'Turn Right into Wing C', 'Lab F101/C2'] }
     }
   },
-  'Internet Lab (2nd Floor)': {
-    code: 'INT',
-    name: 'Advanced Internet & Research Lab',
+  'Internet Lab (F-Block 2nd Floor)': {
+    code: 'F-Block 2F',
+    name: 'Advanced Labs (F-Block 2nd Floor)',
     color: '#EC4899',
-    svgX: 160, svgY: 270, width: 160, height: 120,
+    svgX: 420, svgY: 330, width: 180, height: 80,
     floors: ['2nd Floor'],
     rooms: {
-      'INT': { floor: '2nd Floor', wing: 'High Performance Computing', type: 'Internet Lab', capacity: 60, elevator: 'Central Elevator / Stairs', path: ['Take Central Stairs to 2nd Floor', 'Turn Left into High-Tech Wing', 'Internet Lab (INT)'] }
+      'INT': { floor: '2nd Floor', wing: 'High Performance Computing', type: 'Internet Lab', capacity: 60, path: ['Take F-Block Central Stairs to 2nd Floor', 'Turn Left into High-Tech Wing', 'Internet Lab (INT)'] }
     }
   },
-  'Main Building (2nd Floor)': {
-    code: 'M201',
-    name: 'KPGU Main Building',
+  'A-Block Admin & Lecture Hall': {
+    code: 'A-Block',
+    name: 'Admin & Auditorium Block (A-Block)',
     color: '#F59E0B',
-    svgX: 300, svgY: 190, width: 110, height: 75,
+    svgX: 80, svgY: 330, width: 170, height: 80,
     floors: ['2nd Floor'],
     rooms: {
-      'M201': { floor: '2nd Floor', wing: 'Main Academic Wing', type: 'Lecture Hall', capacity: 100, elevator: 'Main Elevator', path: ['Enter Main Building Atrium', 'Take Main Elevator to Floor 2', 'Room M201'] }
+      'M201': { floor: '2nd Floor', wing: 'Main Academic Wing', type: 'Lecture Hall', capacity: 100, path: ['Enter A-Block Main Atrium', 'Take Elevator to Floor 2', 'Lecture Room M201'] }
+    }
+  },
+  'Central Library & Canteen': {
+    code: 'Central',
+    name: 'Library & Canteen Plaza',
+    color: '#8B5CF6',
+    svgX: 270, svgY: 210, width: 130, height: 90,
+    floors: ['Ground Floor'],
+    rooms: {
+      'LIB': { floor: 'Ground Floor', wing: 'Central Plaza', type: 'Reading Room', capacity: 150, path: ['Enter Central Plaza Building', 'Main Library is on your left'] }
+    }
+  },
+  'Ayurved Hospital Block': {
+    code: 'Hospital',
+    name: 'Matrusri Davalba Ayurved Hospital',
+    color: '#EF4444',
+    svgX: 270, svgY: 315, width: 130, height: 95,
+    floors: ['Ground Floor'],
+    rooms: {
+      'OPD': { floor: 'Ground Floor', wing: 'Hospital Wing A', type: 'OPD Reception', capacity: 100, path: ['Enter Hospital Main Gate', 'OPD Registration counter is directly ahead'] }
+    }
+  },
+  'Hostels & Sports Complex': {
+    code: 'Hostel',
+    name: 'KPGU Student Hostels & Grounds',
+    color: '#3B82F6',
+    svgX: 80, svgY: 20, width: 520, height: 60,
+    floors: ['Ground Floor'],
+    rooms: {
+      'HOSTEL': { floor: 'Ground Floor', wing: 'Boys Hostel', type: 'Hostel Rooms Block', capacity: 200, path: ['Take North road towards hostels area', 'Hostel Block A is on the left'] }
     }
   }
 };
@@ -62,7 +92,7 @@ export const BUILDINGS_DATA = {
 export class CampusMapManager {
   constructor(containerId) {
     this.container = document.getElementById(containerId);
-    this.selectedBuilding = 'Computer Dept Ground Floor';
+    this.selectedBuilding = 'KSET Engineering (J-Block)';
     this.selectedRoom = 'J002';
   }
 

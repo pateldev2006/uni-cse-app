@@ -220,11 +220,12 @@ body {
   justify-content: center;
 }
 
-/* Next Lecture Card redone */
 .next-lecture-card {
   background: linear-gradient(145deg, rgba(16, 22, 43, 0.8), rgba(9, 13, 26, 0.85));
   border: 1px solid var(--border-glass-bright);
   box-shadow: var(--shadow-primary), var(--shadow-glow);
+  padding: 1.1rem;
+  border-radius: 14px;
 }
 
 .live-badge {
